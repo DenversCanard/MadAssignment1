@@ -8,7 +8,7 @@
 *** Note that there will be some time to tinker and get use to using github with android studio
 *** Android studio has some in built git procedures. I am not too familiar with them.
 
-Setting up git flow
+## Setting up git flow
 1. In git directory, use command "git flow init"
 2. Press enter until the messages disappear
 3. If you are working on anything please use a feature branch.
