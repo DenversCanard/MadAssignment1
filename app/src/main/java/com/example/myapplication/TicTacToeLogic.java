@@ -154,4 +154,13 @@ public class TicTacToeLogic {
         board = new int[size][size];
     }
 
+    public int[][] getBoard()
+    {
+        return board;
+    }
+
+    public void loadBoard(int[][] newBoard) // this could cause issues
+    {
+        board = newBoard;
+    }
 }
