@@ -39,7 +39,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/colourButOne"
         android:layout_width="60dp"
         android:layout_height="70dp"
         android:text="Button"
@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.401" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/colourButTwo"
         android:layout_width="60dp"
         android:layout_height="70dp"
         android:text="Button"
@@ -65,7 +65,7 @@
         app:layout_constraintVertical_bias="0.401" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/colourButThree"
         android:layout_width="60dp"
         android:layout_height="70dp"
         android:text="Button"
@@ -78,7 +78,7 @@
         app:layout_constraintVertical_bias="0.401" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/colourButFour"
         android:layout_width="60dp"
         android:layout_height="70dp"
         android:text="Button"
@@ -91,7 +91,7 @@
         app:layout_constraintVertical_bias="0.906" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/colourButFive"
         android:layout_width="60dp"
         android:layout_height="70dp"
         android:text="Button"
@@ -104,7 +104,7 @@
         app:layout_constraintVertical_bias="0.901" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/colourButSix"
         android:layout_width="60dp"
         android:layout_height="70dp"
         android:text="Button"
@@ -115,6 +115,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.901" />
+
+    <TextView
+        android:id="@+id/colourTextV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Board Colour:"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/colourButTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Your other UI elements go here -->
 
