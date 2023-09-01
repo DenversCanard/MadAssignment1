@@ -7,9 +7,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,18 +20,27 @@ public class MainActivity extends AppCompatActivity {
     PlayPage playPageFragment = new PlayPage();
     GameSettingsPage gameSettingsPageFragment = new GameSettingsPage();
     PlayersPage playersPageFragment = new PlayersPage();
+
+    MainActivityData mainActivityDataViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("main", "main");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MainActivityData mainActivityDataViewModel = new ViewModelProvider(this)
-                .get(MainActivityData.class);
+        mainActivityDataViewModel = new ViewModelProvider(this).get(MainActivityData.class);
+
+        int verifyState = 0;
+        if(savedInstanceState != null)
+        {
+            mainActivityDataViewModel.setClickedValue(savedInstanceState.getInt("data"));
+            verifyState = savedInstanceState.getInt("data");
+        }
+
         mainActivityDataViewModel.clickedValue.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                switch(mainActivityDataViewModel.getClickedValue())
-                {
+                switch (mainActivityDataViewModel.getClickedValue()) {
                     case 0:
                         loadHomePageFragment();
                         break;
@@ -45,7 +57,15 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
+
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putInt("value", mainActivityDataViewModel.getClickedValue());
     }
 
     public void loadHomePageFragment(){
