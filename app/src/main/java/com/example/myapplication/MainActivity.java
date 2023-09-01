@@ -33,28 +33,33 @@ public class MainActivity extends AppCompatActivity {
         int verifyState = 0;
         if(savedInstanceState != null)
         {
-            mainActivityDataViewModel.setClickedValue(savedInstanceState.getInt("data"));
-            verifyState = savedInstanceState.getInt("data");
+            mainActivityDataViewModel.setClickedValue(savedInstanceState.getInt("value"));
+            verifyState = savedInstanceState.getInt("value");
+            Log.d("Key Value", savedInstanceState.getInt("value")+"");
         }
+        int tmpstate = verifyState;
 
         mainActivityDataViewModel.clickedValue.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                switch (mainActivityDataViewModel.getClickedValue()) {
-                    case 0:
-                        loadHomePageFragment();
-                        break;
-                    case 1:
-                        loadPlayPageFragment();
-                        break;
-                    case 2:
-                        loadGameSettingsPageFragment();
-                        break;
-                    case 3:
-                        loadPlayersPageFragment();
-                        break;
-                    default:
-                        break;
+                Log.d("integer", integer + "");
+                if (tmpstate != integer) {
+                    switch (mainActivityDataViewModel.getClickedValue()) {
+                        case 0:
+                            loadHomePageFragment();
+                            break;
+                        case 1:
+                            loadPlayPageFragment();
+                            break;
+                        case 2:
+                            loadGameSettingsPageFragment();
+                            break;
+                        case 3:
+                            loadPlayersPageFragment();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 
@@ -66,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onSaveInstanceState(outState);
         outState.putInt("value", mainActivityDataViewModel.getClickedValue());
+        Log.d("SaveValue", mainActivityDataViewModel.getClickedValue()+"");
+
     }
 
     public void loadHomePageFragment(){
