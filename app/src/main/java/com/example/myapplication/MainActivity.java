@@ -17,6 +17,12 @@ public class MainActivity extends AppCompatActivity {
     PlayPage playPageFragment = new PlayPage();
     GameSettingsPage gameSettingsPageFragment = new GameSettingsPage();
     PlayersPage playersPageFragment = new PlayersPage();
+
+    Player1SelectionScreen player1SelectionScreen = new Player1SelectionScreen();
+
+    pvp_or_pve_selection PVPorPVESelectionScreen = new pvp_or_pve_selection();
+
+    Player2SelectionScreen player2SelectionScreen = new Player2SelectionScreen();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,25 +30,30 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivityData mainActivityDataViewModel = new ViewModelProvider(this)
                 .get(MainActivityData.class);
-        mainActivityDataViewModel.clickedValue.observe(this, new Observer<Integer>() {
+        mainActivityDataViewModel.DisplayScreen.observe(this, new Observer<String>() {
             @Override
-            public void onChanged(Integer integer) {
-                switch(mainActivityDataViewModel.getClickedValue())
+            public void onChanged(String string) {
+                if (string.equals("Home")) {
+                    loadHomePageFragment();
+                }
+                if (string.equals("Play")) {
+                    loadPlayPageFragment();
+                }
+                if (string.equals("Settings")) {
+                    loadGameSettingsPageFragment();
+                }
+                if (string.equals("P1SelectionScreen")) {
+                    loadPlayer1SelectionFragment();
+                }
+                if (string.equals("PVPOrPVESelectionScreen")) {
+                    loadPVPorPVESelectionFragment();
+                }
+                if (string.equals("P2SelectionScreen")) {
+                    loadPlayer2SelectionFragment();
+                }
+                if(string.equals("Statistics"))
                 {
-                    case 0:
-                        loadHomePageFragment();
-                        break;
-                    case 1:
-                        loadPlayPageFragment();
-                        break;
-                    case 2:
-                        loadGameSettingsPageFragment();
-                        break;
-                    case 3:
-                        loadPlayersPageFragment();
-                        break;
-                    default:
-                        break;
+                    loadStatisticsFragment();
                 }
             }
         });
@@ -90,6 +101,41 @@ public class MainActivity extends AppCompatActivity {
         else{
             fm.beginTransaction().replace(R.id.fragmentContainerView,playersPageFragment).commit();
         }
+    }
+
+    private void loadPlayer1SelectionFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment frag = fm.findFragmentById(R.id.fragmentContainerView);
+        if (frag == null) {
+            fm.beginTransaction().add(R.id.fragmentContainerView, player1SelectionScreen).commit();
+        } else {
+            fm.beginTransaction().replace(R.id.fragmentContainerView, player1SelectionScreen).commit();
+        }
+    }
+
+    private void loadPVPorPVESelectionFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment frag = fm.findFragmentById(R.id.fragmentContainerView);
+        if (frag == null) {
+            fm.beginTransaction().add(R.id.fragmentContainerView, PVPorPVESelectionScreen).commit();
+        } else {
+            fm.beginTransaction().replace(R.id.fragmentContainerView, PVPorPVESelectionScreen).commit();
+        }
+    }
+
+    private void loadPlayer2SelectionFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment frag = fm.findFragmentById(R.id.fragmentContainerView);
+        if (frag == null) {
+            fm.beginTransaction().add(R.id.fragmentContainerView, player2SelectionScreen).commit();
+        } else {
+            fm.beginTransaction().replace(R.id.fragmentContainerView, player2SelectionScreen).commit();
+        }
+    }
+
+    private void loadStatisticsFragment()
+    {
+        // TODO marilyn once you hace set up the page, copy the above structures
     }
 
 }

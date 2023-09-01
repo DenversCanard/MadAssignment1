@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MainActivityData extends ViewModel {
-    public MutableLiveData<Integer> clickedValue;
-
     public MutableLiveData<String> P1Name;
     public MutableLiveData<String> P1Icon;
     public MutableLiveData<String> P1Marker;
@@ -19,9 +17,6 @@ public class MainActivityData extends ViewModel {
     public MutableLiveData<Boolean> P2IsAi;
 
     public MainActivityData(){
-        clickedValue = new MediatorLiveData<Integer>();
-        clickedValue.setValue(0);
-
         P1Name = new MediatorLiveData<String>();
         P1Name.setValue("Player 1");
 
@@ -41,19 +36,12 @@ public class MainActivityData extends ViewModel {
         P2Marker.setValue("marker2 ");
 
         DisplayScreen = new MediatorLiveData<String>();
-        DisplayScreen.setValue("PlayerOptionMenu");
+        DisplayScreen.setValue("Home");
 
         P2IsAi = new MediatorLiveData<Boolean>();
         P2IsAi.setValue(false);
     }
 
-    public int getClickedValue(){
-        return clickedValue.getValue();
-    }
-
-    public void setClickedValue(int value){
-        clickedValue.setValue(value);
-    }
 
     public String getP1Name(){
         return P1Name.getValue();

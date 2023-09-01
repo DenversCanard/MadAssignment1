@@ -70,7 +70,7 @@ public class HomePage extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mainActivityDataViewModel.setClickedValue(1);
+                mainActivityDataViewModel.setDisplayScreen("Play");
             }
         });
 
@@ -79,7 +79,7 @@ public class HomePage extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mainActivityDataViewModel.setClickedValue(2);
+                mainActivityDataViewModel.setDisplayScreen("Settings");
             }
         });
 
@@ -89,7 +89,7 @@ public class HomePage extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mainActivityDataViewModel.setClickedValue(3);
+                mainActivityDataViewModel.setDisplayScreen("P1SelectionScreen");
             }
         });
 
