@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/seekbar_border" />
+    <item>
+        <clip android:drawable="@drawable/seekbar_progress"/>
+        <!--Inspiration from: https://stackoverflow.com/questions/7511315/change-size-of-android-seekbar -->
+    </item>
+</layer-list>

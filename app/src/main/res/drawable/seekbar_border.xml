@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="8dp" />
+    <solid android:color="#2C2F33" />
+    <!--Inspiration from: https://stackoverflow.com/questions/7511315/change-size-of-android-seekbar -->
+</shape>
