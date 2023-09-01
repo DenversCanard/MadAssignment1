@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlayPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/menuFragment"
+        android:id="@+id/playFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".HomePage">
+        android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tic-Tac-Toe"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/boardContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Play" />
+            android:layout_margin="35dp"
+            android:padding="5dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title">
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </FrameLayout>
