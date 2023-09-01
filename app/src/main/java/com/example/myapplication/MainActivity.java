@@ -7,9 +7,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,46 +20,63 @@ public class MainActivity extends AppCompatActivity {
     PlayPage playPageFragment = new PlayPage();
     GameSettingsPage gameSettingsPageFragment = new GameSettingsPage();
     PlayersPage playersPageFragment = new PlayersPage();
-
     Player1SelectionScreen player1SelectionScreen = new Player1SelectionScreen();
-
     pvp_or_pve_selection PVPorPVESelectionScreen = new pvp_or_pve_selection();
-
     Player2SelectionScreen player2SelectionScreen = new Player2SelectionScreen();
+    MainActivityData mainActivityDataViewModel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("main", "main");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MainActivityData mainActivityDataViewModel = new ViewModelProvider(this)
-                .get(MainActivityData.class);
+        mainActivityDataViewModel = new ViewModelProvider(this).get(MainActivityData.class);
+
+        String tmpScreenState = "Home";
+        if(savedInstanceState != null)
+        {
+            mainActivityDataViewModel.setDisplayScreen(savedInstanceState.getString("screenValue"));
+            tmpScreenState = savedInstanceState.getString("screenValue");
+        }
+        String verifyScreenState = tmpScreenState;
+
         mainActivityDataViewModel.DisplayScreen.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String string) {
-                if (string.equals("Home")) {
-                    loadHomePageFragment();
-                }
-                if (string.equals("Play")) {
-                    loadPlayPageFragment();
-                }
-                if (string.equals("Settings")) {
-                    loadGameSettingsPageFragment();
-                }
-                if (string.equals("P1SelectionScreen")) {
-                    loadPlayer1SelectionFragment();
-                }
-                if (string.equals("PVPOrPVESelectionScreen")) {
-                    loadPVPorPVESelectionFragment();
-                }
-                if (string.equals("P2SelectionScreen")) {
-                    loadPlayer2SelectionFragment();
-                }
-                if(string.equals("Statistics"))
-                {
-                    loadStatisticsFragment();
+                if (string.compareTo(verifyScreenState) != 0) {
+                    if (string.equals("Home")) {
+                        loadHomePageFragment();
+                    }
+                    if (string.equals("Play")) {
+                        loadPlayPageFragment();
+                    }
+                    if (string.equals("Settings")) {
+                        loadGameSettingsPageFragment();
+                    }
+                    if (string.equals("P1SelectionScreen")) {
+                        loadPlayer1SelectionFragment();
+                    }
+                    if (string.equals("PVPOrPVESelectionScreen")) {
+                        loadPVPorPVESelectionFragment();
+                    }
+                    if (string.equals("P2SelectionScreen")) {
+                        loadPlayer2SelectionFragment();
+                    }
+                    if (string.equals("Statistics")) {
+                        loadStatisticsFragment();
+                    }
                 }
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putString("screenValue", mainActivityDataViewModel.getDisplayScreen());
     }
 
     public void loadHomePageFragment(){

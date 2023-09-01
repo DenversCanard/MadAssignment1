@@ -93,6 +93,15 @@ public class HomePage extends Fragment {
             }
         });
 
+        Button statisticsButton = view.findViewById(R.id.gameStatistics);
+        playersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mainActivityDataViewModel.setDisplayScreen("Statistics");
+            }
+        });
+
         return view;
     }
 }
