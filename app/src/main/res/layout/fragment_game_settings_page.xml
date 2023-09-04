@@ -40,70 +40,67 @@
 
 
     <Button
-        android:id="@+id/colourButOne"
+        android:id="@+id/colourBlueBut"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/default_colour_circle"
         android:text=""
 
-        app:layout_constraintBottom_toTopOf="@+id/colourButFour"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="77dp" />
 
     <Button
-        android:id="@+id/colourButTwo"
+        android:id="@+id/colourRedBut"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:text=""
         android:background="@drawable/red_colour_circle"
-        app:layout_constraintBottom_toTopOf="@+id/colourButFive"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text=""
+
+        tools:layout_editor_absoluteX="175dp"
+        tools:layout_editor_absoluteY="77dp" />
 
     <Button
-        android:id="@+id/colourButThree"
+        android:id="@+id/colourGreenBut"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:text=""
         android:background="@drawable/green_colour_circle"
-        app:layout_constraintBottom_toTopOf="@+id/colourButSix"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        android:text=""
+        tools:layout_editor_absoluteX="321dp"
+        tools:layout_editor_absoluteY="84dp" />
 
     <Button
-        android:id="@+id/colourButFour"
+        android:id="@+id/colourYellowBut"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:text=""
         android:background="@drawable/yellow_colour_circle"
-        app:layout_constraintBottom_toTopOf="@+id/guideline1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text=""
+
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="165dp" />
 
     <Button
-        android:id="@+id/colourButFive"
+        android:id="@+id/colourPurpleBut"
         android:layout_width="60dp"
         android:layout_height="60dp"
+
+        android:background="@drawable/purple_colour_circle"
         android:text=""
-        android:background="@drawable/purple_colour_cicle"
-        app:layout_constraintBottom_toTopOf="@id/guideline1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        />
+        tools:layout_editor_absoluteX="175dp"
+        tools:layout_editor_absoluteY="165dp" />
 
     <Button
-        android:id="@+id/colourButSix"
+        android:id="@+id/colourBlackBut"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:text=""
+
+
         android:background="@drawable/black_colour_circle"
-        app:layout_constraintBottom_toTopOf="@id/guideline1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        />
+        android:text=""
+
+        tools:layout_editor_absoluteX="321dp"
+        tools:layout_editor_absoluteY="165dp" />
 
     <TextView
         android:id="@+id/colourTextV"
@@ -112,10 +109,11 @@
         android:text="Board Colour"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/colourButTwo"
+
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -123,13 +121,16 @@
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:max="5"
         android:min="3"
-        android:progress="3"
+        android:progress="4"
         android:progressDrawable="@drawable/seekbar_drawable"
         android:splitTrack="false"
         android:thumb="@drawable/seekbar_thumb"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/boardSizeText" />
 
@@ -140,12 +141,74 @@
         android:text="Board Size"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline1" />
+
+    <TextView
+        android:id="@+id/winConText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Win Condition"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/winConFour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+    <Button
+        android:id="@+id/winConThree"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rounded_blue_button"
+        android:text="3"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
-        app:layout_constraintTop_toBottomOf="@+id/guideline1" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 
+    <Button
+        android:id="@+id/winConFour"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rounded_blue_button"
+        android:text="4"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        tools:layout_editor_absoluteX="175dp"
+        tools:layout_editor_absoluteY="577dp" />
+
+    <Button
+        android:id="@+id/winConFive"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rounded_blue_button"
+        android:text="5"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+
+        tools:layout_editor_absoluteX="315dp"
+        tools:layout_editor_absoluteY="579dp" />
     <!-- Your other UI elements go here -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
