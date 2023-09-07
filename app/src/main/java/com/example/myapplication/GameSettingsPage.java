@@ -132,6 +132,50 @@ public class GameSettingsPage extends Fragment {
             }
         });
 
+        blackBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivityDataViewModel.setBoardColour(R.color.black);
+            }
+        });
+
+        boardSizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                mainActivityDataViewModel.setBoardSize(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        winConThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivityDataViewModel.setWinCondition(Integer.parseInt(winConThree.getText().toString()));
+            }
+        });
+
+        winConFour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivityDataViewModel.setWinCondition(Integer.parseInt(winConFour.getText().toString()));
+            }
+        });
+
+        winConFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivityDataViewModel.setWinCondition(Integer.parseInt(winConFive.getText().toString()));
+            }
+        });
 
 
 
