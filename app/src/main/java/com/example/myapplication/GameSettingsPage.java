@@ -75,13 +75,14 @@ public class GameSettingsPage extends Fragment {
     Button winConThree;
     Button winConFour;
     Button winConFive;
+    MainActivityData mainActivityDataViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_game_settings_page, container, false);
         ViewGroup constraintLayout = view.findViewById(R.id.frameLayout);
-        MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
+        mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
 
         blueBoard = view.findViewById(R.id.colourBlueBut);
         redBoard = view.findViewById(R.id.colourRedBut);
@@ -180,5 +181,19 @@ public class GameSettingsPage extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        int boardColour = mainActivityDataViewModel.getBoardColour();
+        int boardSize = mainActivityDataViewModel.getBoardSize();
+        int winCon = mainActivityDataViewModel.getWinCondition();
+
+        outState.putInt("boardColour", boardColour);
+        outState.putInt("boardSize", boardSize);
+        outState.putInt("winCon", winCon);
+
+
     }
 }
