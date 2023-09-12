@@ -88,21 +88,21 @@ public class Player2SelectionScreen extends Fragment {
         PlayerIconAButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP2Icon("icon4");
+                mainActivityDataViewModel.setP2Icon(R.drawable.icon4);
             }
         });
 
         PlayerIconBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP2Icon("icon5");
+                mainActivityDataViewModel.setP2Icon(R.drawable.icon5);
             }
         });
 
         PlayerIconCButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP2Icon("icon6");
+                mainActivityDataViewModel.setP2Icon(R.drawable.icon6);
             }
         });
 
@@ -110,21 +110,21 @@ public class Player2SelectionScreen extends Fragment {
         PlayerMarkerAButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP2Marker("marker4");
+                mainActivityDataViewModel.setP2Marker(R.drawable.marker4);
             }
         });
 
         PlayerMarkerBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP2Marker("marker5");
+                mainActivityDataViewModel.setP2Marker(R.drawable.marker5);
             }
         });
 
         PlayerMarkerCButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP2Marker("marker6");
+                mainActivityDataViewModel.setP2Marker(R.drawable.marker6);
             }
         });
 
@@ -141,7 +141,7 @@ public class Player2SelectionScreen extends Fragment {
             @Override
             public void onClick(View view) {
                 mainActivityDataViewModel.setP2Name(PlayerName.getText().toString());
-                mainActivityDataViewModel.setDisplayScreen("PlayerOptionMenu");
+                mainActivityDataViewModel.setDisplayScreen("Home");
 
             }
         });

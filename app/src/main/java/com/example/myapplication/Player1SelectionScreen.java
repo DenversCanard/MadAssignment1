@@ -81,21 +81,21 @@ public class Player1SelectionScreen extends Fragment {
         PlayerIconAButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP1Icon("icon1");
+                mainActivityDataViewModel.setP1Icon(R.drawable.icon1);
             }
         });
 
         PlayerIconBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP1Icon("icon2");
+                mainActivityDataViewModel.setP1Icon(R.drawable.icon2);
             }
         });
 
         PlayerIconCButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP1Icon("icon3");
+                mainActivityDataViewModel.setP1Icon(R.drawable.icon3);
             }
         });
 
@@ -103,21 +103,21 @@ public class Player1SelectionScreen extends Fragment {
         PlayerMarkerAButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP1Marker("marker1");
+                mainActivityDataViewModel.setP1Marker(R.drawable.marker1);
             }
         });
 
         PlayerMarkerBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP1Marker("marker2");
+                mainActivityDataViewModel.setP1Marker(R.drawable.marker2);
             }
         });
 
         PlayerMarkerCButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setP1Marker("marker3");
+                mainActivityDataViewModel.setP1Marker(R.drawable.marker3);
             }
         });
 
