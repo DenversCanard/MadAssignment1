@@ -43,6 +43,7 @@ public class PlayPage extends Fragment {
     private TicTacToeLogic boardLogic;
     private ImageButton[][] ticTacToeButtons;
     private int playersTurn;
+    private boolean AI;
 
 
     public PlayPage() {
@@ -84,11 +85,13 @@ public class PlayPage extends Fragment {
         ViewGroup constraintLayout = playView.findViewById(R.id.playFragment);
         MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
 
+        // Check Ai usage
+        AI = mainActivityDataViewModel.getP2IsAi();
+
         // Saved Instance Logic
         boolean reapply = false;
         if (savedInstanceState != null) {
 
-            Log.d("IN", "IN");
             boardSize = savedInstanceState.getInt("boardSize");
             playersTurn = savedInstanceState.getInt("playersTurn");
             int[][] loadedBoardInfo = new int[boardSize][boardSize];
@@ -98,8 +101,6 @@ public class PlayPage extends Fragment {
                 if (key.contains("row")) {
                     int pos = Character.getNumericValue(key.charAt(key.length() - 1));
                     loadedBoardInfo[pos] = savedInstanceState.getIntArray(key);
-                    Log.d("expected", Arrays.toString(savedInstanceState.getIntArray(key)));
-                    Log.d("truth", Arrays.toString(loadedBoardInfo[pos]));
 
 
                 }
@@ -108,7 +109,6 @@ public class PlayPage extends Fragment {
             boardLogic.loadBoard(loadedBoardInfo);
             reapply = true;  // a tag to let the app know to reapply the info to the board ? unclean af
         } else {
-            Log.d("savedInstance", "no");
             boardSize = mainActivityDataViewModel.getBoardSize(); // this is temporary until we have a way of fetching the board size from settings
             boardLogic = new TicTacToeLogic(boardSize);
             playersTurn = 1;
@@ -155,32 +155,7 @@ public class PlayPage extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        int result = boardLogic.placePiece(rowPos, colPos, playersTurn);
-
-                        if (result == 1) {
-                            // change button image
-                            ticTacToeButtons[rowPos][colPos].setBackgroundResource(getPlayerMarker(playersTurn,mainActivityDataViewModel));
-                            switchPlayerTurn();
-                        } else if (result == 3) {
-                            ticTacToeButtons[rowPos][colPos].setBackgroundResource(getPlayerMarker(playersTurn,mainActivityDataViewModel));
-                            Log.d("Win", "Yes");
-                            if(getPlayerTurn() == 1)
-                            {
-                                mainActivityDataViewModel.addP1Win();
-                            }
-                            else
-                            {
-                                mainActivityDataViewModel.addP2Win();
-                            }
-                            // play win screen
-                            // the player has won!!!
-                            // Update Score
-                            TextView score = playView.findViewById(R.id.score);
-                            Log.d("test", score+"");
-                            String newScore = mainActivityDataViewModel.getP1wins() + " : " + mainActivityDataViewModel.getP2wins();
-                            score.setText(newScore);
-                            switchPlayerTurn();
-                        }
+                        placeMarker(playView, ticTacToeButtons[rowPos][colPos], rowPos, colPos, mainActivityDataViewModel);
                     }
                 });
                 ticTacToeButtons[row][col].setLayoutParams(params);
@@ -227,9 +202,14 @@ public class PlayPage extends Fragment {
         player2Icon.setImageResource(mainActivityDataViewModel.getP2Icon());
 
         // Set the player names
+        TextView player1Name = playView.findViewById(R.id.Player1Name);
+        player1Name.setText(mainActivityDataViewModel.getP1Name());
+
+        TextView player2Name = playView.findViewById(R.id.Player2Name);
+        player2Name.setText(mainActivityDataViewModel.getP2Name());
 
 
-        Log.d("finished", "finished");
+
         return playView;
     }
 
@@ -249,24 +229,55 @@ public class PlayPage extends Fragment {
         }
     }
 
-    @Override
-    public void onPause() {
-        Log.d("test", "test");
-        super.onPause();
-    }
 
-    // Issue here?
-    private int getPlayerMarker(int player, MainActivityData activityData) // having arguement makes it more portable
-    {
-        int playerIcon = 0; // 0 is no image
-        if (player == 1) {
-            playerIcon = activityData.getP1Marker();
-        } else if (player == 2) {
-            playerIcon = activityData.getP2Marker();
-        } else {
-            playerIcon = R.drawable.square;
+    public void placeMarker(View playView, ImageButton button, int row, int col, MainActivityData activityData) {
+        int result = boardLogic.placePiece(row, col, playersTurn);
+
+        if (result == 1) {
+            // change button image
+            ticTacToeButtons[row][col].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+            switchPlayerTurn();
+        } else if (result == 3) {
+            ticTacToeButtons[row][col].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+            if (getPlayerTurn() == 1) {
+                activityData.addP1Win();
+            } else {
+                activityData.addP2Win();
+            }
+            TextView score = playView.findViewById(R.id.score);
+            String newScore = activityData.getP1wins() + " : " + activityData.getP2wins();
+            score.setText(newScore);
+            switchPlayerTurn();
         }
-        return playerIcon;
+
+        if (AI && result != 2) // bug occurs if the buttons is already hit
+        {
+            int[] AIPos = boardLogic.getRandomFreeSpot();
+            if(AIPos != null) // no free spots
+            {
+                result = boardLogic.placePiece(AIPos[0], AIPos[1], playersTurn);
+                if (result == 1) {
+                    // change button image
+                    ticTacToeButtons[AIPos[0]][AIPos[1]].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+                    switchPlayerTurn();
+                } else if (result == 3) {
+                    ticTacToeButtons[AIPos[0]][AIPos[1]].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+                    if (getPlayerTurn() == 1) {
+                        activityData.addP1Win();
+                    } else {
+                        activityData.addP2Win();
+                    }
+                    switchPlayerTurn();
+                TextView score = playView.findViewById(R.id.score);
+                String newScore = activityData.getP1wins() + " : " + activityData.getP2wins();
+                score.setText(newScore);
+                }
+            }
+            else
+            {
+                Log.d("No free", "spots");
+            }
+        }
     }
 
     private void switchPlayerTurn() {
@@ -291,5 +302,19 @@ public class PlayPage extends Fragment {
                 ticTacToeButtons[row][col].setBackgroundResource(R.drawable.square);
             }
         }
+        playersTurn = 1;
+    }
+
+    private int getPlayerMarker(int player, MainActivityData activityData) // having arguement makes it more portable
+    {
+        int playerIcon = 0; // 0 is no image
+        if (player == 1) {
+            playerIcon = activityData.getP1Marker();
+        } else if (player == 2) {
+            playerIcon = activityData.getP2Marker();
+        } else {
+            playerIcon = R.drawable.square;
+        }
+        return playerIcon;
     }
 }
