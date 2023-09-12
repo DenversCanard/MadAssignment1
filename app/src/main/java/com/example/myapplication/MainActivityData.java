@@ -13,9 +13,7 @@ public class MainActivityData extends ViewModel {
     public MutableLiveData<String> P2Name;
     public MutableLiveData<String> P2Icon;
     public MutableLiveData<String> P2Marker;
-
     public MutableLiveData<String> DisplayScreen;
-
     public MutableLiveData<Boolean> P2IsAi;
 
     public MainActivityData(){
@@ -75,7 +73,6 @@ public class MainActivityData extends ViewModel {
     public void setP1Marker(String value){
         P1Marker.setValue(value);
     }
-
 
     public String getP2Name(){
         return P2Name.getValue();
