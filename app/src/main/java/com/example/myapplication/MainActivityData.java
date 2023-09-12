@@ -15,6 +15,9 @@ public class MainActivityData extends ViewModel {
     public MutableLiveData<String> DisplayScreen;
 
     public MutableLiveData<Boolean> P2IsAi;
+    public MutableLiveData<Integer> BoardColour;
+    public MutableLiveData<Integer> WinCon;
+    public MutableLiveData<Integer> BoardSize;
 
     public MainActivityData(){
         P1Name = new MediatorLiveData<String>();
@@ -40,6 +43,15 @@ public class MainActivityData extends ViewModel {
 
         P2IsAi = new MediatorLiveData<Boolean>();
         P2IsAi.setValue(false);
+
+        BoardColour = new MediatorLiveData<Integer>();
+        BoardColour.setValue(R.color.defaultBlue);
+
+        BoardSize = new MutableLiveData<Integer>();
+        BoardSize.setValue(3);
+
+        WinCon = new MutableLiveData<Integer>();
+        WinCon.setValue(3);
     }
 
 
@@ -100,4 +112,29 @@ public class MainActivityData extends ViewModel {
     public void setP2IsAi(Boolean value){
         P2IsAi.setValue(value);
     }
+
+    public int getBoardColour(){
+        return BoardColour.getValue();
+    }
+
+    public void setBoardColour(int colour){
+        BoardColour.setValue(colour);
+    }
+
+    public int getBoardSize(){
+        return BoardSize.getValue();
+    }
+
+    public void setBoardSize(int size){
+        BoardSize.setValue(size);
+    }
+
+    public int getWinCondition(){
+        return WinCon.getValue();
+    }
+
+    public void setWinCondition(int newWinCon){
+        WinCon.setValue(newWinCon);
+    }
+
 }

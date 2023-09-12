@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Set the shape of drawable to rectangle -->
+    <solid android:color="#7289DA" /> <!-- Discord Blue -->
+
+    <!-- Rounded corners -->
+    <corners android:radius="16dp" />
+</shape>
