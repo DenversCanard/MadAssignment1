@@ -12,18 +12,18 @@ public class MainActivityData extends ViewModel {
     public MutableLiveData<Integer> P2Icon;
     public MutableLiveData<Integer> P2Marker;
 
-    public MutableLiveData<Boolean> P2IsAi;
 
     public MutableLiveData<Integer> P1Wins;
 
     public MutableLiveData<Integer> P2Wins;
 
-    public MutableLiveData<Integer> BoardSize;
-
-    public MutableLiveData<Integer> BoardColor;
 
     public MutableLiveData<String> DisplayScreen;
 
+    public MutableLiveData<Boolean> P2IsAi;
+    public MutableLiveData<Integer> BoardColour;
+    public MutableLiveData<Integer> WinCon;
+    public MutableLiveData<Integer> BoardSize;
 
     public MainActivityData(){
         P1Name = new MediatorLiveData<String>();
@@ -53,15 +53,18 @@ public class MainActivityData extends ViewModel {
         P2Wins = new MediatorLiveData<Integer>();
         P2Wins.setValue(0);
 
-        BoardSize = new MediatorLiveData<Integer>();
-        BoardSize.setValue(3);
-
-        BoardColor = new MediatorLiveData<Integer>();
-        BoardColor.setValue(R.color.black);
-
         DisplayScreen = new MediatorLiveData<String>();
         DisplayScreen.setValue("Home");
-    }
+
+        BoardColour = new MediatorLiveData<Integer>();
+        BoardColour.setValue(R.color.defaultBlue);
+
+        BoardSize = new MutableLiveData<Integer>();
+        BoardSize.setValue(3);
+
+        WinCon = new MutableLiveData<Integer>();
+        WinCon.setValue(3);
+}
 
 
     public String getP1Name(){
@@ -100,13 +103,6 @@ public class MainActivityData extends ViewModel {
     public void setP2Marker(Integer value){
         P2Marker.setValue(value);
     }
-    public Boolean getP2IsAi(){
-        return P2IsAi.getValue();
-    }
-    public void setP2IsAi(Boolean value){
-        P2IsAi.setValue(value);
-    }
-
 
     public void setP1Wins(int wins) { P1Wins.setValue(wins);}
     public void addP1Win(){P1Wins.setValue(P1Wins.getValue()+1);}
@@ -118,14 +114,6 @@ public class MainActivityData extends ViewModel {
     public void clearP2Wins(){P2Wins.setValue(0);}
     public Integer getP2wins(){return P2Wins.getValue();}
 
-    public void setBoardSize(Integer size) {BoardSize.setValue(size);}
-    public Integer getBoardSize() {return BoardSize.getValue();}
-
-
-    public void setBoardColor(Integer color) {BoardColor.setValue(color);}
-    public Integer getBoardColor() {return BoardColor.getValue();}
-
-
     public String getDisplayScreen(){
         return DisplayScreen.getValue();
     }
@@ -133,5 +121,34 @@ public class MainActivityData extends ViewModel {
         DisplayScreen.setValue(value);
     }
 
+    public Boolean getP2IsAi(){
+        return P2IsAi.getValue();
+    }
+    public void setP2IsAi(Boolean value){
+        P2IsAi.setValue(value);
+    }
 
+    public int getBoardColour(){
+        return BoardColour.getValue();
+    }
+
+    public void setBoardColour(int colour){
+        BoardColour.setValue(colour);
+    }
+
+    public int getBoardSize(){
+        return BoardSize.getValue();
+    }
+
+    public void setBoardSize(int size){
+        BoardSize.setValue(size);
+    }
+
+    public int getWinCondition(){
+        return WinCon.getValue();
+    }
+
+    public void setWinCondition(int newWinCon){
+        WinCon.setValue(newWinCon);
+    }
 }

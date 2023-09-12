@@ -79,6 +79,10 @@ public class PlayPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View playView = inflater.inflate(R.layout.fragment_play_page, container, false);
+        ViewGroup constraintLayout = playView.findViewById(R.id.playFragment);
+        MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
 
         // Saved Instance Logic
         boolean reapply = false;
@@ -105,20 +109,14 @@ public class PlayPage extends Fragment {
             reapply = true;  // a tag to let the app know to reapply the info to the board ? unclean af
         } else {
             Log.d("savedInstance", "no");
-            boardSize = 3; // this is temporary until we have a way of fetching the board size from settings
+            boardSize = mainActivityDataViewModel.getBoardSize(); // this is temporary until we have a way of fetching the board size from settings
             boardLogic = new TicTacToeLogic(boardSize);
             playersTurn = 1;
         }
 
-
-        // Inflate the layout for this fragment
-        View playView = inflater.inflate(R.layout.fragment_play_page, container, false);
-        ViewGroup constraintLayout = playView.findViewById(R.id.playFragment);
-        MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
-
         // Find board container
         LinearLayout boardContainer = constraintLayout.findViewById(R.id.boardContainer);
-        boardContainer.setBackgroundColor(mainActivityDataViewModel.getBoardColor());
+        boardContainer.setBackgroundColor(mainActivityDataViewModel.getBoardColour());
 
         // Setting up all the linear layouts which will act like rows to store the buttons
         LinearLayout[] rows = new LinearLayout[boardSize];
@@ -238,7 +236,7 @@ public class PlayPage extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.d("saving", "trye");
+        Log.d("saving", "true");
         super.onSaveInstanceState(outState);
         outState.putString("reapplyBoard", "yes"); // this is so the app know to reapply the board
         outState.putInt("boardSize", boardSize);
