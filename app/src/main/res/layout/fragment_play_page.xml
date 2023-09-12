@@ -34,12 +34,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="35dp"
-            android:padding="5dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="24dp"
             android:orientation="vertical"
+            android:padding="7dp"
+            app:layout_constraintBottom_toTopOf="@+id/clearBoard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title">
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/clearBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear Board"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
