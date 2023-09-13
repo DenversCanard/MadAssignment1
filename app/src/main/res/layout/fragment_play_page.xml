@@ -17,20 +17,33 @@
             android:id="@+id/boardContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_margin="25dp"
+            android:layout_marginStart="256dp"
             android:orientation="vertical"
             android:padding="9dp"
-            android:layout_margin="25dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playHeader">
-
+            app:layout_constraintTop_toBottomOf="@+id/playHeader"
+            app:layout_constraintVertical_bias="0.64">
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/winMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Win"
+            android:layout_weight="20"
+            app:layout_constraintBottom_toBottomOf="@+id/bottomMenu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/playHeader"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
+            android:layout_margin="0dp"
+            android:background="@drawable/rounded_top_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -40,6 +53,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon4"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="3dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,11 +62,19 @@
                 android:id="@+id/Player1Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:text="Player1Name"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/Player1Icon"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Player1Timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="00:00"
+                app:layout_constraintStart_toEndOf="@+id/Player1Icon"
+                app:layout_constraintTop_toBottomOf="@+id/Player1Name" />
 
             <TextView
                 android:id="@+id/score"
@@ -61,14 +84,18 @@
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/Player2Name"
+                app:layout_constraintHorizontal_bias="0.509"
                 app:layout_constraintStart_toEndOf="@+id/Player1Name"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.304" />
 
             <ImageView
                 android:id="@+id/Player2Icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon1"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,11 +103,19 @@
                 android:id="@+id/Player2Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:text="PLayer2Name"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toStartOf="@+id/Player2Icon"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Player2Timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toStartOf="@+id/Player2Icon"
+                app:layout_constraintTop_toBottomOf="@+id/Player2Name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
@@ -88,8 +123,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <Button
@@ -97,6 +133,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:text="Back" />
 
             <Button
@@ -104,6 +143,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:text="Settings" />
 
             <Button
@@ -111,6 +153,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:text="Statistics" />
 
             <Button
@@ -118,6 +163,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:text="Clear" />
 
         </LinearLayout>
