@@ -6,12 +6,20 @@ import androidx.lifecycle.ViewModel;
 
 public class MainActivityData extends ViewModel {
     public MutableLiveData<String> P1Name;
-    public MutableLiveData<String> P1Icon;
-    public MutableLiveData<String> P1Marker;
+    public MutableLiveData<Integer> P1Icon;
+    public MutableLiveData<Integer> P1Marker;
     public MutableLiveData<String> P2Name;
-    public MutableLiveData<String> P2Icon;
-    public MutableLiveData<String> P2Marker;
+    public MutableLiveData<Integer> P2Icon;
+    public MutableLiveData<Integer> P2Marker;
+
+
+    public MutableLiveData<Integer> P1Wins;
+
+    public MutableLiveData<Integer> P2Wins;
+
+
     public MutableLiveData<String> DisplayScreen;
+
     public MutableLiveData<Boolean> P2IsAi;
     public MutableLiveData<Integer> BoardColour;
     public MutableLiveData<Integer> WinCon;
@@ -19,28 +27,34 @@ public class MainActivityData extends ViewModel {
 
     public MainActivityData(){
         P1Name = new MediatorLiveData<String>();
-        P1Name.setValue("Player 1");
+        P1Name.setValue("PLayer 1");
 
-        P1Icon = new MediatorLiveData<String>();
-        P1Icon.setValue("icon1 ");
+        P1Icon = new MediatorLiveData<Integer>();
+        P1Icon.setValue(R.drawable.icon1);
 
-        P1Marker = new MediatorLiveData<String>();
-        P1Marker.setValue("marker1 ");
+        P1Marker = new MediatorLiveData<Integer>();
+        P1Marker.setValue(R.drawable.marker1);
 
         P2Name = new MediatorLiveData<String>();
         P2Name.setValue("Player 2");
 
-        P2Icon = new MediatorLiveData<String>();
-        P2Icon.setValue("icon2 ");
+        P2Icon = new MediatorLiveData<Integer>();
+        P2Icon.setValue(R.drawable.icon2);
 
-        P2Marker = new MediatorLiveData<String>();
-        P2Marker.setValue("marker2 ");
-
-        DisplayScreen = new MediatorLiveData<String>();
-        DisplayScreen.setValue("Home");
+        P2Marker = new MediatorLiveData<Integer>();
+        P2Marker.setValue(R.drawable.marker2);
 
         P2IsAi = new MediatorLiveData<Boolean>();
         P2IsAi.setValue(false);
+
+        P1Wins = new MediatorLiveData<Integer>();
+        P1Wins.setValue(0);
+
+        P2Wins = new MediatorLiveData<Integer>();
+        P2Wins.setValue(0);
+
+        DisplayScreen = new MediatorLiveData<String>();
+        DisplayScreen.setValue("Home");
 
         BoardColour = new MediatorLiveData<Integer>();
         BoardColour.setValue(R.color.defaultBlue);
@@ -50,7 +64,7 @@ public class MainActivityData extends ViewModel {
 
         WinCon = new MutableLiveData<Integer>();
         WinCon.setValue(3);
-    }
+}
 
 
     public String getP1Name(){
@@ -59,42 +73,46 @@ public class MainActivityData extends ViewModel {
     public void setP1Name(String value){
         P1Name.setValue(value);
     }
-
-    public String getP1Icon(){
+    public Integer getP1Icon(){
         return P1Icon.getValue();
     }
-    public void setP1Icon(String value){
+    public void setP1Icon(Integer value){
         P1Icon.setValue(value);
     }
-
-    public String getP1Marker(){
+    public Integer getP1Marker(){
         return P1Marker.getValue();
     }
-    public void setP1Marker(String value){
+    public void setP1Marker(Integer value){
         P1Marker.setValue(value);
     }
-
     public String getP2Name(){
         return P2Name.getValue();
     }
     public void setP2Name(String value){
         P2Name.setValue(value);
     }
-
-    public String getP2Icon(){
+    public Integer getP2Icon(){
         return P2Icon.getValue();
     }
-    public void setP2Icon(String value){
+    public void setP2Icon(Integer value){
         P2Icon.setValue(value);
     }
-
-    public String getP2Marker(){
+    public Integer getP2Marker(){
         return P2Marker.getValue();
     }
-    public void setP2Marker(String value){
+    public void setP2Marker(Integer value){
         P2Marker.setValue(value);
     }
 
+    public void setP1Wins(int wins) { P1Wins.setValue(wins);}
+    public void addP1Win(){P1Wins.setValue(P1Wins.getValue()+1);}
+    public void clearP1Wins(){P1Wins.setValue(0);}
+    public Integer getP1wins(){return P1Wins.getValue();}
+
+    public void setP2Wins(int wins) { P2Wins.setValue(wins);}
+    public void addP2Win(){P2Wins.setValue(P2Wins.getValue()+1);}
+    public void clearP2Wins(){P2Wins.setValue(0);}
+    public Integer getP2wins(){return P2Wins.getValue();}
 
     public String getDisplayScreen(){
         return DisplayScreen.getValue();
@@ -133,5 +151,4 @@ public class MainActivityData extends ViewModel {
     public void setWinCondition(int newWinCon){
         WinCon.setValue(newWinCon);
     }
-
 }

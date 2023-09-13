@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     pvp_or_pve_selection PVPorPVESelectionScreen = new pvp_or_pve_selection();
     Player2SelectionScreen player2SelectionScreen = new Player2SelectionScreen();
     MainActivityData mainActivityDataViewModel;
-
+    String verifyScreenState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +40,16 @@ public class MainActivity extends AppCompatActivity {
             mainActivityDataViewModel.setDisplayScreen(savedInstanceState.getString("screenValue"));
             tmpScreenState = savedInstanceState.getString("screenValue");
         }
-        String verifyScreenState = tmpScreenState;
+        verifyScreenState = tmpScreenState;
 
         mainActivityDataViewModel.DisplayScreen.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String string) {
+                Log.d("Verify", verifyScreenState);
+
                 if (string.compareTo(verifyScreenState) != 0) {
+                    Log.d("String", string);
+
                     if (string.equals("Home")) {
                         loadHomePageFragment();
                     }
@@ -67,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
                     if (string.equals("Statistics")) {
                         loadStatisticsFragment();
                     }
+                    verifyScreenState = string;
                 }
             }
         });
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState)
@@ -112,16 +118,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void loadPlayersPageFragment(){
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment frag = fm.findFragmentById(R.id.fragmentContainerView);
-        if(frag==null){
-            fm.beginTransaction().add(R.id.fragmentContainerView,playersPageFragment).commit();
-        }
-        else{
-            fm.beginTransaction().replace(R.id.fragmentContainerView,playersPageFragment).commit();
-        }
-    }
 
     private void loadPlayer1SelectionFragment() {
         FragmentManager fm = getSupportFragmentManager();

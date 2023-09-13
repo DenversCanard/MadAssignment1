@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import android.util.Log;
+
+import java.util.Random;
+
 public class TicTacToeLogic {
 
     int[][] board;
@@ -167,5 +171,44 @@ public class TicTacToeLogic {
     public int getPiece(int row, int col)
     {
         return board[row][col];
+    }
+
+    public int getTotalPlacedPieces()
+    {
+        int total = 0;
+        for(int i = 0; i < size; i ++)
+        {
+            for(int j = 0; j < size; j++)
+            {
+                if(board[i][j] != 0)
+                {
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
+
+
+
+    public int[] getRandomFreeSpot() {
+        if (getTotalPlacedPieces() < size * size) {
+            boolean found = false;
+            Random rand = new Random();
+            while (!found) {
+                int x = rand.nextInt(3);
+                int y = rand.nextInt(3);
+                Log.d("x", x+"");
+                Log.d("y", y+"");
+
+
+                if (board[y][x] == 0) {
+                    int[] returnArray = {y,x};
+                    return returnArray;
+                }
+            }
+        }
+
+        return null;
     }
 }

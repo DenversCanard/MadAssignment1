@@ -79,9 +79,9 @@ public class pvp_or_pve_selection extends Fragment {
             public void onClick(View view) {
                 mainActivityDataViewModel.setP2IsAi(true);
                 mainActivityDataViewModel.setP2Name("Zuck GPT");
-                mainActivityDataViewModel.setP2Icon("icon7");
-                mainActivityDataViewModel.setP2Icon("marker7");
-                mainActivityDataViewModel.setDisplayScreen("PlayerOptionMenu");
+                mainActivityDataViewModel.setP2Icon(R.drawable.icon7);
+                mainActivityDataViewModel.setP2Icon(R.drawable.marker7);
+                mainActivityDataViewModel.setDisplayScreen("Home");
             }
         });
 

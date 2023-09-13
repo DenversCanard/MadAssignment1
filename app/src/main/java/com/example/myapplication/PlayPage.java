@@ -13,10 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Arrays;
 
@@ -40,6 +43,7 @@ public class PlayPage extends Fragment {
     private TicTacToeLogic boardLogic;
     private ImageButton[][] ticTacToeButtons;
     private int playersTurn;
+    private boolean AI;
 
 
     public PlayPage() {
@@ -76,12 +80,18 @@ public class PlayPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("creating", "yes");
+        // Inflate the layout for this fragment
+        View playView = inflater.inflate(R.layout.fragment_play_page, container, false);
+        ViewGroup constraintLayout = playView.findViewById(R.id.playFragment);
+        MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
 
+        // Check Ai usage
+        AI = mainActivityDataViewModel.getP2IsAi();
+
+        // Saved Instance Logic
         boolean reapply = false;
         if (savedInstanceState != null) {
 
-            Log.d("IN", "IN");
             boardSize = savedInstanceState.getInt("boardSize");
             playersTurn = savedInstanceState.getInt("playersTurn");
             int[][] loadedBoardInfo = new int[boardSize][boardSize];
@@ -91,8 +101,6 @@ public class PlayPage extends Fragment {
                 if (key.contains("row")) {
                     int pos = Character.getNumericValue(key.charAt(key.length() - 1));
                     loadedBoardInfo[pos] = savedInstanceState.getIntArray(key);
-                    Log.d("expected", Arrays.toString(savedInstanceState.getIntArray(key)));
-                    Log.d("truth", Arrays.toString(loadedBoardInfo[pos]));
 
 
                 }
@@ -101,20 +109,14 @@ public class PlayPage extends Fragment {
             boardLogic.loadBoard(loadedBoardInfo);
             reapply = true;  // a tag to let the app know to reapply the info to the board ? unclean af
         } else {
-            Log.d("savedInstance", "no");
-            boardSize = 6; // this is temporary until we have a way of fetching the board size from settings
+            boardSize = mainActivityDataViewModel.getBoardSize(); // this is temporary until we have a way of fetching the board size from settings
             boardLogic = new TicTacToeLogic(boardSize);
             playersTurn = 1;
         }
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_play_page, container, false);
-        ViewGroup constraintLayout = view.findViewById(R.id.playFragment);
-        MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
-
         // Find board container
         LinearLayout boardContainer = constraintLayout.findViewById(R.id.boardContainer);
-        boardContainer.setBackgroundColor(getActivity().getColor(R.color.black));
+        boardContainer.setBackgroundColor(mainActivityDataViewModel.getBoardColour());
 
         // Setting up all the linear layouts which will act like rows to store the buttons
         LinearLayout[] rows = new LinearLayout[boardSize];
@@ -133,12 +135,13 @@ public class PlayPage extends Fragment {
             boardContainer.addView(rows[rowPos]);
         }
 
+
         // Create all the buttons for the game
         ticTacToeButtons = new ImageButton[boardSize][boardSize];
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
                 ticTacToeButtons[row][col] = new ImageButton(getActivity());
-                ticTacToeButtons[row][col].setBackgroundResource(getPlayerIcon(boardLogic.getPiece(row, col)));
+                ticTacToeButtons[row][col].setBackgroundResource(getPlayerMarker(boardLogic.getPiece(row, col),mainActivityDataViewModel));
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -152,18 +155,7 @@ public class PlayPage extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        int result = boardLogic.placePiece(rowPos, colPos, playersTurn);
-
-                        if (result == 1) {
-                            // change button image
-                            ticTacToeButtons[rowPos][colPos].setBackgroundResource(getPlayerIcon(playersTurn));
-                            switchPlayerTurn();
-                        } else if (result == 3) {
-                            ticTacToeButtons[rowPos][colPos].setBackgroundResource(getPlayerIcon(playersTurn));
-                            Log.d("Win", "Yes");
-                            // play win screen
-                            // the player has won!!!
-                        }
+                        placeMarker(playView, ticTacToeButtons[rowPos][colPos], rowPos, colPos, mainActivityDataViewModel);
                     }
                 });
                 ticTacToeButtons[row][col].setLayoutParams(params);
@@ -172,8 +164,28 @@ public class PlayPage extends Fragment {
             }
         }
 
-        Button clearBoard = view.findViewById(R.id.clearBoard);
 
+
+        // Button Logic
+        Button backToHomePage = playView.findViewById(R.id.back);
+        backToHomePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { mainActivityDataViewModel.setDisplayScreen("Home");}
+        });
+
+        Button settingsButton = playView.findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { mainActivityDataViewModel.setDisplayScreen("Settings");}
+        });
+
+        Button statisticsButton = playView.findViewById(R.id.statsButton);
+        statisticsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { mainActivityDataViewModel.setDisplayScreen("Statistics");}
+        });
+
+        Button clearBoard = playView.findViewById(R.id.clearBoard);
         clearBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,14 +194,29 @@ public class PlayPage extends Fragment {
         });
 
 
-        Log.d("finished", "finished");
-        return view;
+        // Set the player icons
+        ImageView player1Icon = playView.findViewById(R.id.Player1Icon);
+        player1Icon.setImageResource(mainActivityDataViewModel.getP1Icon());
+
+        ImageView player2Icon = playView.findViewById(R.id.Player2Icon);
+        player2Icon.setImageResource(mainActivityDataViewModel.getP2Icon());
+
+        // Set the player names
+        TextView player1Name = playView.findViewById(R.id.Player1Name);
+        player1Name.setText(mainActivityDataViewModel.getP1Name());
+
+        TextView player2Name = playView.findViewById(R.id.Player2Name);
+        player2Name.setText(mainActivityDataViewModel.getP2Name());
+
+
+
+        return playView;
     }
 
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.d("saving", "trye");
+        Log.d("saving", "true");
         super.onSaveInstanceState(outState);
         outState.putString("reapplyBoard", "yes"); // this is so the app know to reapply the board
         outState.putInt("boardSize", boardSize);
@@ -202,28 +229,55 @@ public class PlayPage extends Fragment {
         }
     }
 
-    @Override
-    public void onPause() {
-        Log.d("test", "test");
-        super.onPause();
-    }
 
-    // Issue here?
-    private int getPlayerIcon(int player) // having arguement makes it more portable
-    {
-        int playerIcon = 0; // 0 is no image
-        if (player == 1) {
-            Log.d("hit1", "yes");
+    public void placeMarker(View playView, ImageButton button, int row, int col, MainActivityData activityData) {
+        int result = boardLogic.placePiece(row, col, playersTurn);
 
-            playerIcon = R.drawable.red_square;
-        } else if (player == 2) {
-            Log.d("hit2", "yes");
-
-            playerIcon = R.drawable.blue_square;
-        } else {
-            playerIcon = R.drawable.square;
+        if (result == 1) {
+            // change button image
+            ticTacToeButtons[row][col].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+            switchPlayerTurn();
+        } else if (result == 3) {
+            ticTacToeButtons[row][col].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+            if (getPlayerTurn() == 1) {
+                activityData.addP1Win();
+            } else {
+                activityData.addP2Win();
+            }
+            TextView score = playView.findViewById(R.id.score);
+            String newScore = activityData.getP1wins() + " : " + activityData.getP2wins();
+            score.setText(newScore);
+            switchPlayerTurn();
         }
-        return playerIcon;
+
+        if (AI && result != 2) // bug occurs if the buttons is already hit
+        {
+            int[] AIPos = boardLogic.getRandomFreeSpot();
+            if(AIPos != null) // no free spots
+            {
+                result = boardLogic.placePiece(AIPos[0], AIPos[1], playersTurn);
+                if (result == 1) {
+                    // change button image
+                    ticTacToeButtons[AIPos[0]][AIPos[1]].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+                    switchPlayerTurn();
+                } else if (result == 3) {
+                    ticTacToeButtons[AIPos[0]][AIPos[1]].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+                    if (getPlayerTurn() == 1) {
+                        activityData.addP1Win();
+                    } else {
+                        activityData.addP2Win();
+                    }
+                    switchPlayerTurn();
+                TextView score = playView.findViewById(R.id.score);
+                String newScore = activityData.getP1wins() + " : " + activityData.getP2wins();
+                score.setText(newScore);
+                }
+            }
+            else
+            {
+                Log.d("No free", "spots");
+            }
+        }
     }
 
     private void switchPlayerTurn() {
@@ -232,6 +286,11 @@ public class PlayPage extends Fragment {
         } else {
             playersTurn = 1;
         }
+    }
+
+    private Integer getPlayerTurn() // slightly redundant though it makes the value final
+    {
+        return playersTurn;
     }
 
     private void clearBoard() // TODO
@@ -243,5 +302,19 @@ public class PlayPage extends Fragment {
                 ticTacToeButtons[row][col].setBackgroundResource(R.drawable.square);
             }
         }
+        playersTurn = 1;
+    }
+
+    private int getPlayerMarker(int player, MainActivityData activityData) // having arguement makes it more portable
+    {
+        int playerIcon = 0; // 0 is no image
+        if (player == 1) {
+            playerIcon = activityData.getP1Marker();
+        } else if (player == 2) {
+            playerIcon = activityData.getP2Marker();
+        } else {
+            playerIcon = R.drawable.square;
+        }
+        return playerIcon;
     }
 }
