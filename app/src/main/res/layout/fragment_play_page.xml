@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
+    android:background="#36393F"
     tools:context=".PlayPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,28 +97,33 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Back" />
+                android:text="Back"
+                android:background="@drawable/rounded_blue_button"/>
+
 
             <Button
                 android:id="@+id/settingsButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Settings" />
+                android:text="Settings"
+                android:background="@drawable/rounded_blue_button"/>
 
             <Button
                 android:id="@+id/statsButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Statistics" />
+                android:text="Statistics"
+                android:background="@drawable/rounded_blue_button"/>
 
             <Button
                 android:id="@+id/clearBoard"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Clear" />
+                android:text="Clear"
+                android:background="@drawable/rounded_blue_button"/>
 
         </LinearLayout>
 
