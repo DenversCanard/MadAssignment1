@@ -77,7 +77,7 @@ public class MainActivityData extends ViewModel {
         return P1Icon.getValue();
     }
     public void setP1Icon(Integer value){
-        P1Icon.setValue(value);
+        P1Icon.setValue(value);             //
     }
     public Integer getP1Marker(){
         return P1Marker.getValue();

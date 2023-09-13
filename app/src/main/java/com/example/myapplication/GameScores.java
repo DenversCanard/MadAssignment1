@@ -84,33 +84,41 @@ public class GameScores extends Fragment {
         TextView nameP2 = view.findViewById(R.id.Player2Name);
         TextView scoreP1 = view.findViewById(R.id.P1Score);        //player scores
         TextView scoreP2 = view.findViewById(R.id.P2Score);
+        ImageView crownP1 = view.findViewById(R.id.crownP1);        //crown. indication of leading player
+        ImageView crownP2 = view.findViewById(R.id.crownP2);
+
+        crownP1.setAlpha(0f);   //set both to transparent
+        crownP2.setAlpha(0f);
 
         MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
 
         //setting player icons
-        String chosenIconP1 = mainActivityDataViewModel.getP1Icon();    //get chosen icon
-        String chosenIconP2 = mainActivityDataViewModel.getP2Icon();
-        if (chosenIconP1.equals("icon1")){
-            iconP1.setImageResource(R.drawable.icon1);
-        } else if (chosenIconP1.equals("icon2")){
-            iconP1.setImageResource(R.drawable.icon2);
-        } else if (chosenIconP1.equals("icon3")){
-            iconP1.setImageResource(R.drawable.icon3);
-        }
-
-        if (chosenIconP2.equals("icon4")){
-            iconP1.setImageResource(R.drawable.icon1);
-        } else if (chosenIconP2.equals("icon5")){
-            iconP1.setImageResource(R.drawable.icon2);
-        } else if (chosenIconP2.equals("icon6")){
-            iconP1.setImageResource(R.drawable.icon3);
-        }
+        iconP1.setImageResource(mainActivityDataViewModel.getP1Icon());
+        iconP2.setImageResource(mainActivityDataViewModel.getP2Icon());
 
         //setting player names
         nameP1.setText(mainActivityDataViewModel.getP1Name());
         nameP2.setText(mainActivityDataViewModel.getP2Name());
 
         //setting player score
+        scoreP1.setText(mainActivityDataViewModel.getP1wins());
+        scoreP2.setText(mainActivityDataViewModel.getP2wins());
+
+        //extract score as int
+        int scoreP1int = Integer.valueOf(scoreP1.getText().toString());
+        int scoreP2int = Integer.valueOf(scoreP2.getText().toString());
+
+        //setting leader (crown)
+        if (scoreP1int > scoreP2int){   //if PI in lead
+            crownP1.setAlpha(1f);
+            crownP2.setAlpha(0f);
+        } else if (scoreP2int > scoreP1int){    //if P2 in lead
+            crownP2.setAlpha(1f);
+            crownP1.setAlpha(0f);
+        }
+        //else they are tied. transparent crowns remain same
+
+
 
 
         return view;
