@@ -86,42 +86,65 @@ public class GameScores extends Fragment {
         crownP2.setAlpha(0f);
 
         MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
+        //total rounds played = p1 wins + p2 wins + ties
+        int totalRounds;
+        if (mainActivityDataViewModel.getP1wins() >0 || mainActivityDataViewModel.getP2wins() > 0 ||
+                mainActivityDataViewModel.getTies() >0) {
+            totalRounds = mainActivityDataViewModel.getP1wins() + mainActivityDataViewModel.getP2wins()
+                    + mainActivityDataViewModel.getTies();
+        }else {
+            totalRounds=0;
+        }
 
-        //setting player icons
+
+                //setting player icons
         ImageView iconP1 = view.findViewById(R.id.iconP1);          //player icons
         ImageView iconP2 = view.findViewById(R.id.iconP2);
         iconP1.setImageResource(mainActivityDataViewModel.getP1Icon());
         iconP2.setImageResource(mainActivityDataViewModel.getP2Icon());
 
-        //setting player names
+            //setting player names
         TextView nameP1 = view.findViewById(R.id.Player1Name);      //player names
         TextView nameP2 = view.findViewById(R.id.Player2Name);
         nameP1.setText(mainActivityDataViewModel.getP1Name());
         nameP2.setText(mainActivityDataViewModel.getP2Name());
 
-        //setting player score
+            //setting player score
         TextView scoreP1 = view.findViewById(R.id.P1Score);        //player scores
         TextView scoreP2 = view.findViewById(R.id.P2Score);
         scoreP1.setText(mainActivityDataViewModel.getP1wins().toString());
         scoreP2.setText(mainActivityDataViewModel.getP2wins().toString());
 
-        //extract score as int
+            //extract score as int
         int scoreP1int = Integer.valueOf(scoreP1.getText().toString());
         int scoreP2int = Integer.valueOf(scoreP2.getText().toString());
 
-        TextView lossesP1 = view.findViewById(R.id.lossesP1);        //player losses
+            //losses
+        TextView lossesP1 = view.findViewById(R.id.lossesP1);
         TextView lossesP2 = view.findViewById(R.id.lossesP2);
         lossesP1.setText(mainActivityDataViewModel.getP2wins().toString()); //player losses = other player wins
         lossesP2.setText(mainActivityDataViewModel.getP1wins().toString());
 
+            //ties
         TextView tiesP1 = view.findViewById(R.id.tiesP1);               //player ties
         TextView tiesP2 = view.findViewById(R.id.tiesP2);
+        // INSERT TIES
 
-        TextView winPercentP1 = view.findViewById(R.id.winPercentP1);   //win percentage
+            // out of
+        TextView winTotalP1 = view.findViewById(R.id.winsTotal1);
+        TextView winTotalP2 = view.findViewById(R.id.winsTotal2);
+        winTotalP1.setText("wins out of " + Integer.toString(totalRounds));
+        winTotalP2.setText("wins out of " + Integer.toString(totalRounds));
+
+            //win percentage
+        TextView winPercentP1 = view.findViewById(R.id.winPercentP1);
         TextView winPercentP2 = view.findViewById(R.id.winPercentP2);
+        //float percentP1 = scoreP1int/totalRounds*100;
+        //float percentP2 = scoreP2int/totalRounds*100;
+        //winPercentP1.setText(Float.toString(percentP1)+"%");
+        //winPercentP2.setText(Float.toString(percentP2)+"%");
 
-
-
+        //tiesP1.setText(Integer.toString(totalRounds));
 
         //setting leader (crown)
         if (scoreP1int > scoreP2int){           //if PI in lead

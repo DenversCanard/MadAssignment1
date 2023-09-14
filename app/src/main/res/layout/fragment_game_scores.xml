@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@color/greyDiscord"
     tools:context=".GameScores">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:text="Player 1"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/defaultBlue"
                     android:textSize="17dp">
                 </TextView>
 
@@ -181,7 +181,7 @@
                     android:id="@+id/P2subtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/defaultBlue"
                     android:text="Player 2"
                     android:textAlignment="center"
                     android:textSize="17dp">
@@ -260,7 +260,7 @@
                 android:text="Losses"
                 android:textAlignment="center"
                 android:textSize="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/defaultBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -272,7 +272,7 @@
                 android:text="Ties"
                 android:textAlignment="center"
                 android:textSize="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/defaultBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/guidelineR2">
@@ -281,10 +281,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Win Percentage"
+                android:text="Win %"
                 android:textAlignment="center"
                 android:textSize="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/defaultBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/guidelineR3">
