@@ -189,7 +189,10 @@ public class TicTacToeLogic {
         return total;
     }
 
-
+    public int getFreeSpotAmount()
+    {
+        return getTotalPlacedPieces() - (size * size);
+    }
 
     public int[] getRandomFreeSpot() {
         if (getTotalPlacedPieces() < size * size) {
