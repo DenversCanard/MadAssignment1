@@ -12,10 +12,10 @@ public class MainActivityData extends ViewModel {
     public MutableLiveData<Integer> P2Icon;
     public MutableLiveData<Integer> P2Marker;
 
-
     public MutableLiveData<Integer> P1Wins;
 
     public MutableLiveData<Integer> P2Wins;
+    public MutableLiveData<Integer> Ties;
 
 
     public MutableLiveData<String> DisplayScreen;
@@ -52,6 +52,9 @@ public class MainActivityData extends ViewModel {
 
         P2Wins = new MediatorLiveData<Integer>();
         P2Wins.setValue(0);
+
+        Ties = new MediatorLiveData<Integer>();
+        Ties.setValue(0);
 
         DisplayScreen = new MediatorLiveData<String>();
         DisplayScreen.setValue("Home");
@@ -109,10 +112,15 @@ public class MainActivityData extends ViewModel {
     public void clearP1Wins(){P1Wins.setValue(0);}
     public Integer getP1wins(){return P1Wins.getValue();}
 
+    //P2 WINS
     public void setP2Wins(int wins) { P2Wins.setValue(wins);}
     public void addP2Win(){P2Wins.setValue(P2Wins.getValue()+1);}
     public void clearP2Wins(){P2Wins.setValue(0);}
     public Integer getP2wins(){return P2Wins.getValue();}
+
+    // TIES
+    public void addTies(){Ties.setValue(Ties.getValue()+1);}
+    public Integer getTies(){return Ties.getValue();}
 
     public String getDisplayScreen(){
         return DisplayScreen.getValue();

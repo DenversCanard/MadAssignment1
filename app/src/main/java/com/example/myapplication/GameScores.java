@@ -78,12 +78,7 @@ public class GameScores extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game_scores, container, false);
 
         Button backButton = view.findViewById(R.id.scoreBackButton);//back button
-        ImageView iconP1 = view.findViewById(R.id.iconP1);          //player icons
-        ImageView iconP2 = view.findViewById(R.id.iconP2);
-        TextView nameP1 = view.findViewById(R.id.Player1Name);      //player names
-        TextView nameP2 = view.findViewById(R.id.Player2Name);
-        TextView scoreP1 = view.findViewById(R.id.P1Score);        //player scores
-        TextView scoreP2 = view.findViewById(R.id.P2Score);
+
         ImageView crownP1 = view.findViewById(R.id.crownP1);        //crown. indication of leading player
         ImageView crownP2 = view.findViewById(R.id.crownP2);
 
@@ -93,23 +88,43 @@ public class GameScores extends Fragment {
         MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
 
         //setting player icons
+        ImageView iconP1 = view.findViewById(R.id.iconP1);          //player icons
+        ImageView iconP2 = view.findViewById(R.id.iconP2);
         iconP1.setImageResource(mainActivityDataViewModel.getP1Icon());
         iconP2.setImageResource(mainActivityDataViewModel.getP2Icon());
 
         //setting player names
+        TextView nameP1 = view.findViewById(R.id.Player1Name);      //player names
+        TextView nameP2 = view.findViewById(R.id.Player2Name);
         nameP1.setText(mainActivityDataViewModel.getP1Name());
         nameP2.setText(mainActivityDataViewModel.getP2Name());
 
         //setting player score
-        scoreP1.setText(mainActivityDataViewModel.getP1wins());
-        scoreP2.setText(mainActivityDataViewModel.getP2wins());
+        TextView scoreP1 = view.findViewById(R.id.P1Score);        //player scores
+        TextView scoreP2 = view.findViewById(R.id.P2Score);
+        scoreP1.setText(mainActivityDataViewModel.getP1wins().toString());
+        scoreP2.setText(mainActivityDataViewModel.getP2wins().toString());
 
         //extract score as int
         int scoreP1int = Integer.valueOf(scoreP1.getText().toString());
         int scoreP2int = Integer.valueOf(scoreP2.getText().toString());
 
+        TextView lossesP1 = view.findViewById(R.id.lossesP1);        //player losses
+        TextView lossesP2 = view.findViewById(R.id.lossesP2);
+        lossesP1.setText(mainActivityDataViewModel.getP2wins().toString()); //player losses = other player wins
+        lossesP2.setText(mainActivityDataViewModel.getP1wins().toString());
+
+        TextView tiesP1 = view.findViewById(R.id.tiesP1);               //player ties
+        TextView tiesP2 = view.findViewById(R.id.tiesP2);
+
+        TextView winPercentP1 = view.findViewById(R.id.winPercentP1);   //win percentage
+        TextView winPercentP2 = view.findViewById(R.id.winPercentP2);
+
+
+
+
         //setting leader (crown)
-        if (scoreP1int > scoreP2int){   //if PI in lead
+        if (scoreP1int > scoreP2int){           //if PI in lead
             crownP1.setAlpha(1f);
             crownP2.setAlpha(0f);
         } else if (scoreP2int > scoreP1int){    //if P2 in lead
@@ -117,6 +132,15 @@ public class GameScores extends Fragment {
             crownP1.setAlpha(0f);
         }
         //else they are tied. transparent crowns remain same
+
+
+        //press back button goes to PLAY page
+        Button backbutton = view.findViewById(R.id.scoreBackButton);
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { mainActivityDataViewModel.setDisplayScreen("Play");}
+        });
+
 
 
 
