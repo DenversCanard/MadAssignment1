@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
+    android:background="@color/greyDiscord"
     tools:context=".PlayPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +32,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Win"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="50sp"
             android:layout_weight="20"
             app:layout_constraintBottom_toBottomOf="@+id/bottomMenu"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/Player1Icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -56,16 +60,19 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginLeft="3dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/Round"/>
 
             <TextView
                 android:id="@+id/Player1Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:textColor="@color/white"
                 android:text="Player1Name"
                 app:layout_constraintStart_toEndOf="@+id/Player1Icon"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <TextView
                 android:id="@+id/Player1Timer"
@@ -73,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="00:00"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@+id/Player1Icon"
                 app:layout_constraintTop_toBottomOf="@+id/Player1Name" />
 
@@ -82,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="0 : 0"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/Player2Name"
                 app:layout_constraintHorizontal_bias="0.509"
@@ -89,7 +98,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.304" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/Player2Icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -97,13 +106,15 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/Round"/>
 
             <TextView
                 android:id="@+id/Player2Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PLayer2Name"
+                android:textColor="@color/white"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toStartOf="@+id/Player2Icon"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -113,6 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
+                android:textColor="@color/white"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toStartOf="@+id/Player2Icon"
                 app:layout_constraintTop_toBottomOf="@+id/Player2Name" />
@@ -133,6 +145,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:background="@drawable/rounded_blue_button"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
@@ -143,6 +156,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:background="@drawable/rounded_blue_button"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
@@ -153,6 +167,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:background="@drawable/rounded_blue_button"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
@@ -163,6 +178,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:background="@drawable/rounded_blue_button"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
