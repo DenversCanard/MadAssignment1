@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FFA500" />
+    <size android:width="60dp"
+        android:height="60dp" />
+    <!--Inspiration from: https://stackoverflow.com/questions/7511315/change-size-of-android-seekbar -->
+</selector>

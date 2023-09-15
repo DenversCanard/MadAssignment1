@@ -18,11 +18,25 @@
         app:layout_constraintGuide_percent="0.33" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.185" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.475" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -44,11 +58,13 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/default_colour_circle"
+
+
         android:text=""
-
-
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="77dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline1_2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colourTextV" />
 
     <Button
         android:id="@+id/colourRedBut"
@@ -57,8 +73,10 @@
         android:background="@drawable/red_colour_circle"
         android:text=""
 
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="77dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline1_2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/colourTextV" />
 
     <Button
         android:id="@+id/colourGreenBut"
@@ -67,8 +85,10 @@
         android:background="@drawable/green_colour_circle"
 
         android:text=""
-        tools:layout_editor_absoluteX="321dp"
-        tools:layout_editor_absoluteY="84dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline1_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/colourTextV" />
 
     <Button
         android:id="@+id/colourYellowBut"
@@ -77,8 +97,10 @@
         android:background="@drawable/yellow_colour_circle"
         android:text=""
 
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="165dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1_2" />
 
     <Button
         android:id="@+id/colourPurpleBut"
@@ -87,8 +109,10 @@
 
         android:background="@drawable/purple_colour_circle"
         android:text=""
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="165dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline1_2" />
 
     <Button
         android:id="@+id/colourBlackBut"
@@ -99,8 +123,10 @@
         android:background="@drawable/black_colour_circle"
         android:text=""
 
-        tools:layout_editor_absoluteX="321dp"
-        tools:layout_editor_absoluteY="165dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/guideline1_2" />
 
     <TextView
         android:id="@+id/colourTextV"
@@ -145,8 +171,8 @@
         android:textStyle="bold"
         android:typeface="sans"
 
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
 
+        app:layout_constraintBottom_toTopOf="@+id/guideline2_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline1" />
@@ -163,7 +189,7 @@
         android:textStyle="bold"
 
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/winConFour"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline2" />
@@ -181,7 +207,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+        app:layout_constraintTop_toBottomOf="@+id/winConText" />
 
     <Button
         android:id="@+id/winConFour"
@@ -193,8 +219,10 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:typeface="sans"
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="577dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/winConText" />
 
     <Button
         android:id="@+id/winConFive"
@@ -207,8 +235,10 @@
         android:textStyle="bold"
         android:typeface="sans"
 
-        tools:layout_editor_absoluteX="315dp"
-        tools:layout_editor_absoluteY="579dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/winConText" />
     <!-- Your other UI elements go here -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

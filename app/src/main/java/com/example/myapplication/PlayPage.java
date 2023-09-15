@@ -4,24 +4,22 @@ import android.os.Bundle;
 
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +41,20 @@ public class PlayPage extends Fragment {
     private TicTacToeLogic boardLogic;
     private ImageButton[][] ticTacToeButtons;
     private int playersTurn;
+
+    // Necessary Timer logic, might be a bit bloated
+    private long player1Time;
+    private CountDownTimer p1Timer;
+    private TextView p1TimeText;
+
+    private long player2Time;
+    private CountDownTimer p2Timer;
+    private TextView p2TimeText;
+
+    private MutableLiveData<Integer> totalMoves;
+    private MutableLiveData<Integer> freeMoves;
+
+
     private boolean AI;
 
 
@@ -80,6 +92,7 @@ public class PlayPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View playView = inflater.inflate(R.layout.fragment_play_page, container, false);
         ViewGroup constraintLayout = playView.findViewById(R.id.playFragment);
@@ -88,12 +101,22 @@ public class PlayPage extends Fragment {
         // Check Ai usage
         AI = mainActivityDataViewModel.getP2IsAi();
 
+        // Timer setup // probably retrieve this from the data view model since it will probably be a setting
+        player1Time = 30*1000;  // 1000 millisec in a sec
+        player2Time = 30*1000;  // 1000 millisec in a sec
+
+
         // Saved Instance Logic
         boolean reapply = false;
         if (savedInstanceState != null) {
 
+            // apply old time
+            player1Time = savedInstanceState.getLong("p1Time");
+            player2Time = savedInstanceState.getLong("p2Time");
+
             boardSize = savedInstanceState.getInt("boardSize");
             playersTurn = savedInstanceState.getInt("playersTurn");
+            Log.d("playersTurnLoad", playersTurn+"");
             int[][] loadedBoardInfo = new int[boardSize][boardSize];
 
             for (String key : savedInstanceState.keySet()) {
@@ -208,7 +231,45 @@ public class PlayPage extends Fragment {
         TextView player2Name = playView.findViewById(R.id.Player2Name);
         player2Name.setText(mainActivityDataViewModel.getP2Name());
 
+        // Make Win message Invisible
+        TextView winMessage = playView.findViewById(R.id.winMessage);
+        winMessage.setVisibility(View.GONE);
 
+
+        // Initial Timer set up for current Player
+        p1TimeText = playView.findViewById(R.id.Player1Timer);
+        String p1FormattedTime = Float.toString(player1Time / 1000).replace(".", ":");
+        p1TimeText.setText(p1FormattedTime);
+        p2TimeText = playView.findViewById(R.id.Player2Timer);
+        String p2FormattedTime = Float.toString(player2Time / 1000).replace(".", ":");
+        p2TimeText.setText(p2FormattedTime);
+        setUpInitialTimer();
+
+        // Set up the win counters // important for screen resets
+        TextView score = playView.findViewById(R.id.score);
+        String newScore = mainActivityDataViewModel.getP1wins() + " : " + mainActivityDataViewModel.getP2wins();
+        score.setText(newScore);
+
+        // Check board info (total/free)
+        totalMoves = new MediatorLiveData<Integer>();
+        totalMoves.setValue(boardLogic.getTotalPlacedPieces());
+         totalMoves.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+             @Override
+             public void onChanged(Integer integer) {
+                 TextView totalMovesText = playView.findViewById(R.id.totalMoves);
+                 totalMovesText.setText("T : "+totalMoves.getValue());
+             }
+         });
+
+        freeMoves = new MediatorLiveData<Integer>();
+        freeMoves.setValue(boardLogic.getFreeSpotAmount());
+        freeMoves.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                TextView freeMovesText = playView.findViewById(R.id.freeMoves);
+                freeMovesText.setText("F : "+freeMoves.getValue());
+            }
+        });
 
         return playView;
     }
@@ -218,11 +279,20 @@ public class PlayPage extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         Log.d("saving", "true");
         super.onSaveInstanceState(outState);
+
+        Log.d("playersTurnStartSave", playersTurn+"");
+        outState.putInt("playersTurn", playersTurn);
+
+        // save board states
         outState.putString("reapplyBoard", "yes"); // this is so the app know to reapply the board
         outState.putInt("boardSize", boardSize);
-        outState.putInt("playersTurn", boardSize);
+
+        // save timers
+        outState.putLong("p1Time", player1Time);
+        outState.putLong("p2Time", player2Time);
 
 
+        // remember to save the timer here if used
         int[][] boardInfo = boardLogic.getBoard();
         for (int counter = 0; counter < boardSize; counter++) {
             outState.putIntArray("row" + counter, boardInfo[counter]);
@@ -244,13 +314,27 @@ public class PlayPage extends Fragment {
             } else {
                 activityData.addP2Win();
             }
+            TextView winMessage = playView.findViewById(R.id.winMessage);
+            String message = "Player "+playersTurn+" Wins";
+            winMessage.setVisibility(View.VISIBLE);
+            winMessage.setText(message);
+
             TextView score = playView.findViewById(R.id.score);
             String newScore = activityData.getP1wins() + " : " + activityData.getP2wins();
             score.setText(newScore);
             switchPlayerTurn();
         }
+        else if (result == 4) {
+            ticTacToeButtons[row][col].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+            activityData.addDraw();
+            switchPlayerTurn();
+            TextView winMessage = playView.findViewById(R.id.winMessage);
+            String message = "Its a Draw!";
+            winMessage.setVisibility(View.VISIBLE);
+            winMessage.setText(message);
+        }
 
-        if (AI && result != 2) // bug occurs if the buttons is already hit
+        if (AI && result != 2) // bug occurs if the buttons is already hit,  this prevents it
         {
             int[] AIPos = boardLogic.getRandomFreeSpot();
             if(AIPos != null) // no free spots
@@ -272,20 +356,64 @@ public class PlayPage extends Fragment {
                 String newScore = activityData.getP1wins() + " : " + activityData.getP2wins();
                 score.setText(newScore);
                 }
+                else if (result == 4)
+                {
+                    switchPlayerTurn();
+                    TextView winMessage = playView.findViewById(R.id.winMessage);
+                    String message = "Its a Draw!";
+                    winMessage.setVisibility(View.VISIBLE);
+                    winMessage.setText(message);
+                }
             }
             else
             {
                 Log.d("No free", "spots");
             }
         }
+        updateTurnCounters();
     }
 
     private void switchPlayerTurn() {
         if (playersTurn == 1) {
             playersTurn = 2;
+
+            // Timer Logic here
+            p1Timer.cancel(); // cancel the p1Timer
+
+            p2Timer = new CountDownTimer(player2Time, 1000) {
+                @Override
+                public void onTick(long l) {
+                    String formattedTime = Float.toString(player2Time / 1000).replace(".", ":");
+                    p2TimeText.setText(formattedTime);
+                    player2Time = player2Time-1000;
+                }
+
+                @Override
+                public void onFinish() {
+                    p2TimeText.setText("NO MORE TIME");
+                }
+            }.start();
         } else {
             playersTurn = 1;
+
+            // Timer Logic here
+            p2Timer.cancel(); // cancel the p1Timer
+            p1Timer = new CountDownTimer(player1Time, 1000) {
+                @Override
+                public void onTick(long l) {
+                    String formattedTime = Float.toString(player1Time / 1000).replace(".", ":");
+                    p1TimeText.setText(formattedTime);
+                    player1Time = player1Time-1000;
+                }
+
+                @Override
+                public void onFinish() {
+                    p1TimeText.setText("NO MORE TIME");
+                }
+            }.start();
         }
+        Log.d("playersTurn", playersTurn+"");
+
     }
 
     private Integer getPlayerTurn() // slightly redundant though it makes the value final
@@ -302,6 +430,11 @@ public class PlayPage extends Fragment {
                 ticTacToeButtons[row][col].setBackgroundResource(R.drawable.square);
             }
         }
+        // clear the win text if it is present
+        TextView winMessage = getActivity().findViewById(R.id.winMessage);
+        winMessage.setVisibility(View.GONE);
+        // update the turn counters to be reset
+        updateTurnCounters();
         playersTurn = 1;
     }
 
@@ -316,5 +449,56 @@ public class PlayPage extends Fragment {
             playerIcon = R.drawable.square;
         }
         return playerIcon;
+    }
+
+    public void setUpInitialTimer()
+    {
+        if(playersTurn == 1)
+        {
+            // Timer Logic here
+            p1Timer = new CountDownTimer(player1Time, 1000) {
+                @Override
+                public void onTick(long l) {
+                    String formattedTime = Float.toString(player1Time / 1000).replace(".", ":");
+                    p1TimeText.setText(formattedTime);
+                    player1Time = player1Time-1000;
+                }
+
+                @Override
+                public void onFinish() {
+                    p1TimeText.setText("NO MORE TIME");
+                }
+            }.start();
+        } else
+        {
+            p2Timer = new CountDownTimer(player2Time, 1000) {
+                @Override
+                public void onTick(long l) {
+                    String formattedTime = Float.toString(player2Time / 1000).replace(".", ":");
+                    p2TimeText.setText(formattedTime);
+                    player2Time = player2Time-1000;
+                }
+
+                @Override
+                public void onFinish() {
+                    p2TimeText.setText("NO MORE TIME");
+                }
+            }.start();
+        }
+    }
+
+
+
+    private void updateTurnCounters()
+    {
+        if(totalMoves.getValue() != boardLogic.getTotalPlacedPieces())
+        {
+            totalMoves.setValue(boardLogic.getTotalPlacedPieces());
+        }
+
+        if(freeMoves.getValue() != boardLogic.getFreeSpotAmount())
+        {
+            freeMoves.setValue(boardLogic.getFreeSpotAmount());
+        }
     }
 }
