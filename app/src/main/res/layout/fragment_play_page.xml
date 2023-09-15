@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Win"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="50sp"
             android:layout_weight="20"
@@ -47,8 +47,10 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_margin="0dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_top_header"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -56,23 +58,22 @@
                 android:id="@+id/Player1Icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/icon4"
-                android:layout_marginTop="3dp"
                 android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/icon4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/Round"/>
+                app:shapeAppearanceOverlay="@style/Round" />
 
             <TextView
                 android:id="@+id/Player1Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:textColor="@color/white"
                 android:text="Player1Name"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@+id/Player1Icon"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/Player1Timer"
@@ -89,33 +90,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0 : 0"
-                android:textSize="20dp"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/Player2Name"
-                app:layout_constraintHorizontal_bias="0.509"
                 app:layout_constraintStart_toEndOf="@+id/Player1Name"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.304" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/Player2Icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/icon1"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="3dp"
+                android:src="@drawable/icon1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/Round"/>
+                app:shapeAppearanceOverlay="@style/Round" />
 
             <TextView
                 android:id="@+id/Player2Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
                 android:text="PLayer2Name"
                 android:textColor="@color/white"
-                android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toStartOf="@+id/Player2Icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -123,11 +121,30 @@
                 android:id="@+id/Player2Timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
                 android:text="00:00"
                 android:textColor="@color/white"
-                android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toStartOf="@+id/Player2Icon"
                 app:layout_constraintTop_toBottomOf="@+id/Player2Name" />
+
+            <TextView
+                android:id="@+id/freeMoves"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="F : 0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/Player2Icon"
+                app:layout_constraintHorizontal_bias="0.518"
+                app:layout_constraintStart_toEndOf="@+id/Player1Timer" />
+
+            <TextView
+                android:id="@+id/totalMoves"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T : 0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/Player2Timer"
+                app:layout_constraintStart_toStartOf="@+id/Player1Icon" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
