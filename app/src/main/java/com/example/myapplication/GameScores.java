@@ -129,6 +129,8 @@ public class GameScores extends Fragment {
         TextView tiesP1 = view.findViewById(R.id.tiesP1);               //player ties
         TextView tiesP2 = view.findViewById(R.id.tiesP2);
         // INSERT TIES
+        tiesP1.setText(mainActivityDataViewModel.getDraw()+"");
+        tiesP2.setText(mainActivityDataViewModel.getDraw()+"");
 
             // out of
         TextView winTotalP1 = view.findViewById(R.id.winsTotal1);

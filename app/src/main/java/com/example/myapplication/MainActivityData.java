@@ -55,7 +55,7 @@ public class MainActivityData extends ViewModel {
         P2Wins.setValue(0);
 
         Draw = new MutableLiveData<Integer>();
-        Draw.setValue(3);
+        Draw.setValue(0);
 
         DisplayScreen = new MediatorLiveData<String>();
         DisplayScreen.setValue("Home");
