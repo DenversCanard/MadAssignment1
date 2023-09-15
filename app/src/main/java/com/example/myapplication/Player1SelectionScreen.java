@@ -78,6 +78,8 @@ public class Player1SelectionScreen extends Fragment {
         AppCompatImageButton PlayerMarkerCButton = view.findViewById(R.id.PlayerMarkerCButton);
 
         EditText PlayerName  = view.findViewById(R.id.PlayerName);
+        PlayerName.setText(mainActivityDataViewModel.getP1Name());
+
         Button BackButton = view.findViewById(R.id.BackButton);
         Button NextButton = view.findViewById(R.id.NextButton);
 
