@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.imageview.ShapeableImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,15 +68,17 @@ public class Player2SelectionScreen extends Fragment {
         MainActivityData mainActivityDataViewModel = new ViewModelProvider(getActivity()).
                 get(MainActivityData.class);
 
-        ImageButton PlayerIconAButton = view.findViewById(R.id.PlayerIconAButton);
-        ImageButton PlayerIconBButton = view.findViewById(R.id.PlayerIconBButton);
-        ImageButton PlayerIconCButton = view.findViewById(R.id.PlayerIconCButton);
+        ShapeableImageView PlayerIconAButton = view.findViewById(R.id.PlayerIconAButton);
+        ShapeableImageView PlayerIconBButton = view.findViewById(R.id.PlayerIconBButton);
+        ShapeableImageView PlayerIconCButton = view.findViewById(R.id.PlayerIconCButton);
 
-        ImageButton PlayerMarkerAButton = view.findViewById(R.id.PlayerMarkerAButton);
-        ImageButton PlayerMarkerBButton = view.findViewById(R.id.PlayerMarkerBButton);
-        ImageButton PlayerMarkerCButton = view.findViewById(R.id.PlayerMarkerCButton);
+        AppCompatImageButton PlayerMarkerAButton = view.findViewById(R.id.PlayerMarkerAButton);
+        AppCompatImageButton PlayerMarkerBButton = view.findViewById(R.id.PlayerMarkerBButton);
+        AppCompatImageButton PlayerMarkerCButton = view.findViewById(R.id.PlayerMarkerCButton);
 
         EditText PlayerName  = view.findViewById(R.id.PlayerName);
+        PlayerName.setText(mainActivityDataViewModel.getP1Name());
+
         Button BackButton = view.findViewById(R.id.BackButton);
         Button NextButton = view.findViewById(R.id.NextButton);
 

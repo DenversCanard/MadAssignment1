@@ -324,6 +324,15 @@ public class PlayPage extends Fragment {
             score.setText(newScore);
             switchPlayerTurn();
         }
+        else if (result == 4) {
+            ticTacToeButtons[row][col].setBackgroundResource(getPlayerMarker(playersTurn, activityData));
+            activityData.addDraw();
+            switchPlayerTurn();
+            TextView winMessage = playView.findViewById(R.id.winMessage);
+            String message = "Its a Draw!";
+            winMessage.setVisibility(View.VISIBLE);
+            winMessage.setText(message);
+        }
 
         if (AI && result != 2) // bug occurs if the buttons is already hit,  this prevents it
         {
@@ -346,6 +355,14 @@ public class PlayPage extends Fragment {
                 TextView score = playView.findViewById(R.id.score);
                 String newScore = activityData.getP1wins() + " : " + activityData.getP2wins();
                 score.setText(newScore);
+                }
+                else if (result == 4)
+                {
+                    switchPlayerTurn();
+                    TextView winMessage = playView.findViewById(R.id.winMessage);
+                    String message = "Its a Draw!";
+                    winMessage.setVisibility(View.VISIBLE);
+                    winMessage.setText(message);
                 }
             }
             else
@@ -469,6 +486,8 @@ public class PlayPage extends Fragment {
             }.start();
         }
     }
+
+
 
     private void updateTurnCounters()
     {

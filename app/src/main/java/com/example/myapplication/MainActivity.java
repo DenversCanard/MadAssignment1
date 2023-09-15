@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Player1SelectionScreen player1SelectionScreen = new Player1SelectionScreen();
     pvp_or_pve_selection PVPorPVESelectionScreen = new pvp_or_pve_selection();
     Player2SelectionScreen player2SelectionScreen = new Player2SelectionScreen();
+    GameScores statsScreen = new GameScores();
     MainActivityData mainActivityDataViewModel;
     String verifyScreenState;
 
@@ -151,7 +152,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadStatisticsFragment()
     {
-        // TODO marilyn once you hace set up the page, copy the above structures
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment frag = fm.findFragmentById(R.id.fragmentContainerView);
+        if (frag == null) {
+            fm.beginTransaction().add(R.id.fragmentContainerView, statsScreen).commit();
+        } else {
+            fm.beginTransaction().replace(R.id.fragmentContainerView, statsScreen).commit();
+        }
     }
 
 }

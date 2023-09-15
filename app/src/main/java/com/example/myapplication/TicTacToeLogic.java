@@ -38,7 +38,12 @@ public class TicTacToeLogic {
                 {
                     return 3;
                 }
+                else if(isDraw() == 1)
+                {
+                    return 4;
+                }
             }
+
             else
             {
                 return 2; // position is occupied
@@ -213,5 +218,14 @@ public class TicTacToeLogic {
         }
 
         return null;
+    }
+
+    public int isDraw()
+    {
+        if(getFreeSpotAmount() == 0)
+        {
+            return 1;
+        }
+        return 0;
     }
 }
