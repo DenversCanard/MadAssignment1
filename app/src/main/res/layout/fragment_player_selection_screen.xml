@@ -158,13 +158,15 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_weight="1"
-        android:text=""
         android:background="@drawable/orange_colour_circle"
-        app:layout_constraintTop_toBottomOf="@+id/guideline4"
-        app:layout_constraintStart_toEndOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        android:contentDescription="markerB"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        android:contentDescription="markerB"/>
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toEndOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.489" />
 
     <ImageButton
         android:id="@+id/PlayerMarkerCButton"

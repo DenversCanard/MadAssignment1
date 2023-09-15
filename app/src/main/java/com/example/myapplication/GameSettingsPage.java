@@ -80,6 +80,7 @@ public class GameSettingsPage extends Fragment {
     Button winConThree;
     Button winConFour;
     Button winConFive;
+    Button BackButton;
     MainActivityData mainActivityDataViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,6 +100,7 @@ public class GameSettingsPage extends Fragment {
         winConThree = view.findViewById(R.id.winConThree);
         winConFour = view.findViewById(R.id.winConFour);
         winConFive = view.findViewById(R.id.winConFive);
+        BackButton = view.findViewById(R.id.backButton);
 
         List<Button> colourList = new ArrayList<>();
         colourList.add(blueBoard);
@@ -256,6 +258,14 @@ public class GameSettingsPage extends Fragment {
                 deselectButtons(conditionList);
                 winConFive.setAlpha(0.3f);
                 mainActivityDataViewModel.setWinCondition(Integer.parseInt(winConFive.getText().toString()));
+            }
+        });
+
+        BackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivityDataViewModel.setDisplayScreen("Settings");
+
             }
         });
 
