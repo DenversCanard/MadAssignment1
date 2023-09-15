@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/greyDiscord"
     tools:context=".PlayPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,36 +12,196 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tic-Tac-Toe"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Score"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:id="@+id/boardContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="35dp"
-            android:padding="5dp"
+            android:layout_height="0dp"
+            android:layout_margin="25dp"
+            android:layout_marginStart="256dp"
             android:orientation="vertical"
+            android:padding="9dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title">
-
+            app:layout_constraintTop_toBottomOf="@+id/playHeader"
+            app:layout_constraintVertical_bias="0.64">
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/winMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Win"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="50sp"
+            android:layout_weight="20"
+            app:layout_constraintBottom_toBottomOf="@+id/bottomMenu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/playHeader"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_top_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/Player1Icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/icon4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/Round" />
+
+            <TextView
+                android:id="@+id/Player1Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Player1Name"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/Player1Icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Player1Timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="00:00"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/Player1Icon"
+                app:layout_constraintTop_toBottomOf="@+id/Player1Name" />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 : 0"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/Player2Name"
+                app:layout_constraintStart_toEndOf="@+id/Player1Name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/Player2Icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/icon1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/Round" />
+
+            <TextView
+                android:id="@+id/Player2Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="PLayer2Name"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/Player2Icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Player2Timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="00:00"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/Player2Icon"
+                app:layout_constraintTop_toBottomOf="@+id/Player2Name" />
+
+            <TextView
+                android:id="@+id/freeMoves"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="F : 0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/Player2Icon"
+                app:layout_constraintHorizontal_bias="0.518"
+                app:layout_constraintStart_toEndOf="@+id/Player1Timer" />
+
+            <TextView
+                android:id="@+id/totalMoves"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T : 0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/Player2Timer"
+                app:layout_constraintStart_toStartOf="@+id/Player1Icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomMenu"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="Back" />
+
+            <Button
+                android:id="@+id/settingsButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="Settings" />
+
+            <Button
+                android:id="@+id/statsButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="Statistics" />
+
+            <Button
+                android:id="@+id/clearBoard"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="Clear" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
