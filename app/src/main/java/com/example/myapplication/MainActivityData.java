@@ -28,7 +28,7 @@ public class MainActivityData extends ViewModel {
 
     public MainActivityData(){
         P1Name = new MediatorLiveData<String>();
-        P1Name.setValue("set Player 1 Name");
+        P1Name.setValue("Player 1 Name");
 
         P1Icon = new MediatorLiveData<Integer>();
         P1Icon.setValue(R.drawable.icon1);
@@ -37,7 +37,7 @@ public class MainActivityData extends ViewModel {
         P1Marker.setValue(R.drawable.marker1);
 
         P2Name = new MediatorLiveData<String>();
-        P2Name.setValue("set Player 2 Name");
+        P2Name.setValue("Player 2 Name");
 
         P2Icon = new MediatorLiveData<Integer>();
         P2Icon.setValue(R.drawable.icon2);

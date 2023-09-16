@@ -264,7 +264,7 @@ public class GameSettingsPage extends Fragment {
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setDisplayScreen("Settings");
+                mainActivityDataViewModel.setDisplayScreen("Home");
 
             }
         });

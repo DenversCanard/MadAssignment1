@@ -130,7 +130,7 @@ public class Player1SelectionScreen extends Fragment {
             @Override
             public void onClick(View view) {
                 mainActivityDataViewModel.setP1Name(PlayerName.getText().toString());
-                mainActivityDataViewModel.setDisplayScreen("PlayerOptionMenu");
+                mainActivityDataViewModel.setDisplayScreen("Home");
 
             }
         });
