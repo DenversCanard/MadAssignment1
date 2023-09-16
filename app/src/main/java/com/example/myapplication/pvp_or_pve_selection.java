@@ -70,6 +70,7 @@ public class pvp_or_pve_selection extends Fragment {
         PVPButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mainActivityDataViewModel.setP2IsAi(false);
                 mainActivityDataViewModel.setDisplayScreen("P2SelectionScreen");
             }
         });
