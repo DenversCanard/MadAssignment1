@@ -81,6 +81,7 @@ public class GameSettingsPage extends Fragment {
     Button winConFour;
     Button winConFive;
     Button BackButton;
+
     MainActivityData mainActivityDataViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,33 +117,31 @@ public class GameSettingsPage extends Fragment {
         conditionList.add(winConFive);
 
         if (savedInstanceState != null) {
-//            titleText.setText(savedInstanceState.getString("titleNote"));
-//            textEditInput.setText(savedInstanceState.getString("noteTake"));
-            mainActivityDataViewModel.setBoardColour(savedInstanceState.getInt("boardColour"));
+            mainActivityDataViewModel.setBoardColour(savedInstanceState.getString("boardColour"));
             mainActivityDataViewModel.setBoardSize(savedInstanceState.getInt("boardSize"));
             mainActivityDataViewModel.setWinCondition(savedInstanceState.getInt("winCondition"));
         }
         else{
             boardSizeBar.setProgress(mainActivityDataViewModel.getBoardSize());
-            int colour = mainActivityDataViewModel.getBoardColour();
+            String colour = mainActivityDataViewModel.getBoardColour();
             int winConNum = mainActivityDataViewModel.getWinCondition();
 
-            if(colour == R.color.defaultBlue){
+            if(colour.equals("#8792DA")){
                 blueBoard.setAlpha(0.3f);
             }
-            else if(colour == R.color.red){
+            else if(colour.equals("#FF0000")){
                 redBoard.setAlpha(0.3f);
             }
-            else if(colour == R.color.green){
+            else if(colour.equals("#0FFF50")){
                 greenBoard.setAlpha(0.3f);
             }
-            else if(colour == R.color.yellow){
+            else if(colour.equals("#FFCC00")){
                 yellowBoard.setAlpha(0.3f);
             }
-            else if(colour == R.color.purple){
+            else if(colour.equals("#9932CC")){
                 purpleBoard.setAlpha(0.3f);
             }
-            else if(colour == R.color.black){
+            else if(colour.equals("#FF000000")){
                 blackBoard.setAlpha(0.3f);
             }
 
@@ -163,7 +162,7 @@ public class GameSettingsPage extends Fragment {
             public void onClick(View view) {
                 deselectButtons(colourList);
                 blueBoard.setAlpha(0.3f);
-                mainActivityDataViewModel.setBoardColour(R.color.defaultBlue);
+                mainActivityDataViewModel.setBoardColour("#8792DA");
             }
         });
 
@@ -172,7 +171,7 @@ public class GameSettingsPage extends Fragment {
             public void onClick(View view) {
                 deselectButtons(colourList);
                 redBoard.setAlpha(0.3f);
-                mainActivityDataViewModel.setBoardColour(R.color.red);
+                mainActivityDataViewModel.setBoardColour("#FF0000");
             }
         });
         greenBoard.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +179,7 @@ public class GameSettingsPage extends Fragment {
             public void onClick(View view) {
                 deselectButtons(colourList);
                 greenBoard.setAlpha(0.3f);
-                mainActivityDataViewModel.setBoardColour(R.color.green);
+                mainActivityDataViewModel.setBoardColour("#0FFF50");
             }
         });
         yellowBoard.setOnClickListener(new View.OnClickListener() {
@@ -188,15 +187,7 @@ public class GameSettingsPage extends Fragment {
             public void onClick(View view) {
                 deselectButtons(colourList);
                 yellowBoard.setAlpha(0.3f);
-                mainActivityDataViewModel.setBoardColour(R.color.yellow);
-            }
-        });
-        greenBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deselectButtons(colourList);
-                greenBoard.setAlpha(0.3f);
-                mainActivityDataViewModel.setBoardColour(R.color.green);
+                mainActivityDataViewModel.setBoardColour("#FFCC00");
             }
         });
         purpleBoard.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +195,7 @@ public class GameSettingsPage extends Fragment {
             public void onClick(View view) {
                 deselectButtons(colourList);
                 purpleBoard.setAlpha(0.3f);
-                mainActivityDataViewModel.setBoardColour(R.color.purple);
+                mainActivityDataViewModel.setBoardColour("#9932CC");
             }
         });
 
@@ -213,7 +204,7 @@ public class GameSettingsPage extends Fragment {
             public void onClick(View view) {
                 deselectButtons(colourList);
                 blackBoard.setAlpha(0.3f);
-                mainActivityDataViewModel.setBoardColour(R.color.black);
+                mainActivityDataViewModel.setBoardColour("#FF000000");
             }
         });
 
@@ -283,11 +274,12 @@ public class GameSettingsPage extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        int boardColour = mainActivityDataViewModel.getBoardColour();
+
+        String boardColour = mainActivityDataViewModel.getBoardColour();
         int boardSize = mainActivityDataViewModel.getBoardSize();
         int winCon = mainActivityDataViewModel.getWinCondition();
 
-        outState.putInt("boardColour", boardColour);
+        outState.putString("boardColour", boardColour);
         outState.putInt("boardSize", boardSize);
         outState.putInt("winCon", winCon);
 

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 
@@ -105,6 +106,9 @@ public class PlayPage extends Fragment {
         player1Time = 30*1000;  // 1000 millisec in a sec
         player2Time = 30*1000;  // 1000 millisec in a sec
 
+        // Find board container
+        LinearLayout boardContainer = constraintLayout.findViewById(R.id.boardContainer);
+        //boardContainer.setBackgroundColor(Color.parseColor(mainActivityDataViewModel.getBoardColour()));
 
         // Saved Instance Logic
         boolean reapply = false;
@@ -113,9 +117,9 @@ public class PlayPage extends Fragment {
             // apply old time
             player1Time = savedInstanceState.getLong("p1Time");
             player2Time = savedInstanceState.getLong("p2Time");
-
             boardSize = savedInstanceState.getInt("boardSize");
             playersTurn = savedInstanceState.getInt("playersTurn");
+            boardContainer.setBackgroundColor(Color.parseColor(mainActivityDataViewModel.getBoardColour()));
             Log.d("playersTurnLoad", playersTurn+"");
             int[][] loadedBoardInfo = new int[boardSize][boardSize];
 
@@ -133,13 +137,12 @@ public class PlayPage extends Fragment {
             reapply = true;  // a tag to let the app know to reapply the info to the board ? unclean af
         } else {
             boardSize = mainActivityDataViewModel.getBoardSize(); // this is temporary until we have a way of fetching the board size from settings
+            boardContainer.setBackgroundColor(Color.parseColor(mainActivityDataViewModel.getBoardColour()));
             boardLogic = new TicTacToeLogic(boardSize, mainActivityDataViewModel.getWinCondition());
             playersTurn = 1;
         }
 
-        // Find board container
-        LinearLayout boardContainer = constraintLayout.findViewById(R.id.boardContainer);
-        boardContainer.setBackgroundColor(mainActivityDataViewModel.getBoardColour());
+
 
         // Setting up all the linear layouts which will act like rows to store the buttons
         LinearLayout[] rows = new LinearLayout[boardSize];
