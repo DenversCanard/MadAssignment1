@@ -18,6 +18,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link GameSettingsPage#newInstance} factory method to
@@ -75,6 +80,7 @@ public class GameSettingsPage extends Fragment {
     Button winConThree;
     Button winConFour;
     Button winConFive;
+    Button BackButton;
     MainActivityData mainActivityDataViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,10 +100,69 @@ public class GameSettingsPage extends Fragment {
         winConThree = view.findViewById(R.id.winConThree);
         winConFour = view.findViewById(R.id.winConFour);
         winConFive = view.findViewById(R.id.winConFive);
+        BackButton = view.findViewById(R.id.backButton);
+
+        List<Button> colourList = new ArrayList<>();
+        colourList.add(blueBoard);
+        colourList.add(redBoard);
+        colourList.add(greenBoard);
+        colourList.add(yellowBoard);
+        colourList.add(purpleBoard);
+        colourList.add(blackBoard);
+
+        List<Button> conditionList = new ArrayList<>();
+        conditionList.add(winConThree);
+        conditionList.add(winConFour);
+        conditionList.add(winConFive);
+
+        if (savedInstanceState != null) {
+//            titleText.setText(savedInstanceState.getString("titleNote"));
+//            textEditInput.setText(savedInstanceState.getString("noteTake"));
+            mainActivityDataViewModel.setBoardColour(savedInstanceState.getInt("boardColour"));
+            mainActivityDataViewModel.setBoardSize(savedInstanceState.getInt("boardSize"));
+            mainActivityDataViewModel.setWinCondition(savedInstanceState.getInt("winCondition"));
+        }
+        else{
+            boardSizeBar.setProgress(mainActivityDataViewModel.getBoardSize());
+            int colour = mainActivityDataViewModel.getBoardColour();
+            int winConNum = mainActivityDataViewModel.getWinCondition();
+
+            if(colour == R.color.defaultBlue){
+                blueBoard.setAlpha(0.3f);
+            }
+            else if(colour == R.color.red){
+                redBoard.setAlpha(0.3f);
+            }
+            else if(colour == R.color.green){
+                greenBoard.setAlpha(0.3f);
+            }
+            else if(colour == R.color.yellow){
+                yellowBoard.setAlpha(0.3f);
+            }
+            else if(colour == R.color.purple){
+                purpleBoard.setAlpha(0.3f);
+            }
+            else if(colour == R.color.black){
+                blackBoard.setAlpha(0.3f);
+            }
+
+            if (winConNum == 3){
+                winConThree.setAlpha(0.3f);
+            }
+            else if(winConNum == 4){
+                winConFour.setAlpha(0.3f);
+            } else if (winConNum ==5) {
+                winConFive.setAlpha(0.3f);
+            }
+
+        }
+
 
         blueBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(colourList);
+                blueBoard.setAlpha(0.3f);
                 mainActivityDataViewModel.setBoardColour(R.color.defaultBlue);
             }
         });
@@ -105,30 +170,40 @@ public class GameSettingsPage extends Fragment {
         redBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(colourList);
+                redBoard.setAlpha(0.3f);
                 mainActivityDataViewModel.setBoardColour(R.color.red);
             }
         });
         greenBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(colourList);
+                greenBoard.setAlpha(0.3f);
                 mainActivityDataViewModel.setBoardColour(R.color.green);
             }
         });
         yellowBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(colourList);
+                yellowBoard.setAlpha(0.3f);
                 mainActivityDataViewModel.setBoardColour(R.color.yellow);
             }
         });
         greenBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(colourList);
+                greenBoard.setAlpha(0.3f);
                 mainActivityDataViewModel.setBoardColour(R.color.green);
             }
         });
         purpleBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(colourList);
+                purpleBoard.setAlpha(0.3f);
                 mainActivityDataViewModel.setBoardColour(R.color.purple);
             }
         });
@@ -136,6 +211,8 @@ public class GameSettingsPage extends Fragment {
         blackBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(colourList);
+                blackBoard.setAlpha(0.3f);
                 mainActivityDataViewModel.setBoardColour(R.color.black);
             }
         });
@@ -160,6 +237,8 @@ public class GameSettingsPage extends Fragment {
         winConThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(conditionList);
+                winConThree.setAlpha(0.3f);
                 mainActivityDataViewModel.setWinCondition(Integer.parseInt(winConThree.getText().toString()));
             }
         });
@@ -167,6 +246,8 @@ public class GameSettingsPage extends Fragment {
         winConFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(conditionList);
+                winConFour.setAlpha(0.3f);
                 mainActivityDataViewModel.setWinCondition(Integer.parseInt(winConFour.getText().toString()));
             }
         });
@@ -174,13 +255,29 @@ public class GameSettingsPage extends Fragment {
         winConFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deselectButtons(conditionList);
+                winConFive.setAlpha(0.3f);
                 mainActivityDataViewModel.setWinCondition(Integer.parseInt(winConFive.getText().toString()));
+            }
+        });
+
+        BackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivityDataViewModel.setDisplayScreen("Settings");
+
             }
         });
 
 
 
         return view;
+    }
+
+    private void deselectButtons(List<Button> buttonList) {
+        for (Button button : buttonList) {
+            button.setAlpha(1f); // Set to "unselected" appearance
+        }
     }
 
     @Override
