@@ -3,7 +3,8 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class GameScores extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private static final DecimalFormat df = new DecimalFormat("0.0");
 
     public GameScores() {
         // Required empty public constructor
@@ -76,6 +78,7 @@ public class GameScores extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_scores, container, false);
+
 
         Button backButton = view.findViewById(R.id.scoreBackButton);//back button
 
@@ -138,13 +141,21 @@ public class GameScores extends Fragment {
         winTotalP1.setText("wins out of " + Integer.toString(totalRounds));
         winTotalP2.setText("wins out of " + Integer.toString(totalRounds));
 
+
             //win percentage
         TextView winPercentP1 = view.findViewById(R.id.winPercentP1);
         TextView winPercentP2 = view.findViewById(R.id.winPercentP2);
-        //float percentP1 = scoreP1int/totalRounds*100;
-        //float percentP2 = scoreP2int/totalRounds*100;
-        //winPercentP1.setText(Float.toString(percentP1)+"%");
-        //winPercentP2.setText(Float.toString(percentP2)+"%");
+        if (totalRounds==0){            //if no games played yet
+            winPercentP1.setText("0%");
+            winPercentP2.setText("0%");
+        }else{                          //else, calculate the percentage
+            float percentP1 = (float)scoreP1int/(float)totalRounds*100;
+            float percentP2 = (float)scoreP2int/(float)totalRounds*100;
+            winPercentP1.setText(df.format(percentP1)+ "%");
+            winPercentP2.setText(df.format(percentP2)+ "%");
+        }
+
+
 
         //tiesP1.setText(Integer.toString(totalRounds));
 
