@@ -133,7 +133,7 @@ public class PlayPage extends Fragment {
             reapply = true;  // a tag to let the app know to reapply the info to the board ? unclean af
         } else {
             boardSize = mainActivityDataViewModel.getBoardSize(); // this is temporary until we have a way of fetching the board size from settings
-            boardLogic = new TicTacToeLogic(boardSize);
+            boardLogic = new TicTacToeLogic(boardSize, mainActivityDataViewModel.getWinCondition());
             playersTurn = 1;
         }
 
@@ -435,6 +435,9 @@ public class PlayPage extends Fragment {
         winMessage.setVisibility(View.GONE);
         // update the turn counters to be reset
         updateTurnCounters();
+
+        //reset timers
+        resetTimers();
         playersTurn = 1;
     }
 
@@ -499,6 +502,67 @@ public class PlayPage extends Fragment {
         if(freeMoves.getValue() != boardLogic.getFreeSpotAmount())
         {
             freeMoves.setValue(boardLogic.getFreeSpotAmount());
+        }
+    }
+
+    private void resetTimers()
+    {
+        // reset counters
+        player1Time = 30*1000;  // 1000 millisec in a sec
+        player2Time = 30*1000;  // 1000 millisec in a sec
+        if(p1Timer != null)
+        {
+            p1Timer.cancel();
+
+            if(playersTurn == 1)
+            {
+                p1Timer = new CountDownTimer(player1Time, 1000) {
+                    @Override
+                    public void onTick(long l) {
+                        String formattedTime = Float.toString(player1Time / 1000).replace(".", ":");
+                        p1TimeText.setText(formattedTime);
+                        player1Time = player1Time-1000;
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        p1TimeText.setText("NO MORE TIME");
+                    }
+                }.start();
+            }
+            else {
+                String formattedTime = Float.toString(player1Time / 1000).replace(".", ":");
+                p1TimeText.setText(formattedTime);
+            }
+
+        }
+
+        if(p2Timer != null)
+        {
+            p2Timer.cancel();
+
+            if(playersTurn == 2)
+            {
+                p2Timer = new CountDownTimer(player2Time, 1000) {
+                    @Override
+                    public void onTick(long l) {
+                        String formattedTime = Float.toString(player2Time / 1000).replace(".", ":");
+                        p2TimeText.setText(formattedTime);
+                        player2Time = player2Time-1000;
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        p2TimeText.setText("NO MORE TIME");
+                    }
+                }.start();
+            }
+            else
+            {
+                String formattedTime = Float.toString(player2Time / 1000).replace(".", ":");
+                p2TimeText.setText(formattedTime);
+            }
+
         }
     }
 }

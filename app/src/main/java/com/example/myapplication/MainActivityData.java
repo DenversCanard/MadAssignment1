@@ -67,7 +67,7 @@ public class MainActivityData extends ViewModel {
         BoardSize.setValue(3);
 
         WinCon = new MutableLiveData<Integer>();
-        WinCon.setValue(3);
+        WinCon.setValue(BoardSize.getValue());
 
 }
 

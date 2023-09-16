@@ -7,18 +7,21 @@ import java.util.Random;
 public class TicTacToeLogic {
 
     int[][] board;
+    int winCondition;
     int size;
 
     public TicTacToeLogic()
     {
         board = new int[3][3];
+        winCondition = size;
         size = 3;
     }
 
 
-    public TicTacToeLogic(int size)
+    public TicTacToeLogic(int size, int winCondition)
     {
         board = new int[size][size];
+        this.winCondition = winCondition;
         this.size = size;
     }
 
@@ -64,7 +67,7 @@ public class TicTacToeLogic {
             {
                 break;
             }
-            else if(col_pos == size-1)
+            else if(col_pos == winCondition-1)
             {
                 System.out.println("row win");
                 return 1;
@@ -78,7 +81,7 @@ public class TicTacToeLogic {
             {
                 break;
             }
-            else if(row_pos == size-1)
+            else if(row_pos == winCondition-1)
             {
                 System.out.println("Col win");
                 return 1;
@@ -105,7 +108,7 @@ public class TicTacToeLogic {
             x_pos_dr++;
         }
 
-        if(diagonal_counter_dr == size)
+        if(diagonal_counter_dr == winCondition)
         {
             System.out.println("DR win");
             return 1;
@@ -137,7 +140,7 @@ public class TicTacToeLogic {
             y_pos++;
         }
 
-        if(diagonal_counter_dl == size)
+        if(diagonal_counter_dl == winCondition)
         {
             System.out.println("DL win");
             return 1;
@@ -227,5 +230,10 @@ public class TicTacToeLogic {
             return 1;
         }
         return 0;
+    }
+
+    public void setWinCondition(int winCondition)
+    {
+        this.winCondition = winCondition;
     }
 }
